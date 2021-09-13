@@ -1,0 +1,2 @@
+astropy-sphinx-theme
+sphinx
