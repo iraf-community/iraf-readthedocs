@@ -2,6 +2,7 @@
 """irafdocs.py: compile IRAF documentation
 """
 import pathlib
+import re
 
 from pyraf import iraf
 from pyraf.iraftask import IrafCLTask, IrafPkg
@@ -72,16 +73,23 @@ def process_package(task=None, shortdesc=None):
 
 
 def process_other(task, shortdesc):
+    remove_anchor = re.compile(r'<A NAME="[^"]*">(.*?)</A>')
+    h3 = re.compile(r'<H2>(.*?)</H2>')
     full_name = f"{task.getPkgname()}.{task.getName()}"
     outfile = docpath / f'{full_name}.rst'
     with outfile.open('w') as fp:
         title = task.getName()
         if shortdesc:
             title += ' — ' + shortdesc
+        fp.write(f'.. _{task.getName()}:\n\n')
         fp.write(f'{title}\n{"="*len(title)}\n\n')
         fp.write(f'**Package: {task.getPkgname()}**\n\n')
-        fp.write('.. raw:: html\n\n  ')
-        fp.write('\n  '.join(iraf.help(task, device='html', Stdout=True)[1:]))
+        fp.write('.. raw:: html\n\n')
+        for line in iraf.help(task, device='html', Stdout=True)[14:-2]:
+            line = remove_anchor.sub(r'\1', line)
+            if h3.findall(line):
+                line = '<H3>' + h3.sub(r'\1', line).capitalize() + '</H3>'
+            fp.write('  ' + line + '\n')
     return full_name
 
 
