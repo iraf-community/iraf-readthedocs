@@ -10,8 +10,12 @@ from pyraf.iraftask import IrafCLTask, IrafPkg
 docpath = pathlib.Path('doc')
 
 def get_help(task, device='text'):
-    name = task.getName()
-    pkg = task.getPkgname()
+    if isinstance(task, str):
+        name = task.split('.')[-1]
+        pkg = task.split('.')[0]
+    else:
+        name = task.getName()
+        pkg = task.getPkgname()
     try:
         lines = iraf.help(f'{pkg}.{name}', device=device, Stdout=True)
         if len(lines) < 2:
@@ -45,11 +49,10 @@ def process_task(name, pkgname=None, desc=None):
         full_name = name
     try:
         task = iraf.getTask(full_name)
-    except:
-        print(f"Error for task {full_name}")
-        return None
+    except Exception:
+        return process_other(f'{pkgname}.{name}', desc)
     
-    if isinstance(task, IrafPkg):
+    if isinstance(task, IrafPkg) or full_name == 'language':
         return process_package(task, desc)
     else:
         return process_other(task, desc)
@@ -62,7 +65,7 @@ def process_package(task=None, shortdesc=None):
     try:
         iraf.load(task.getName(), doprint=False, hush=True)
     except:
-        return None
+        pass
     
     if task.getName() == 'clpackage':
         full_name = None
@@ -91,15 +94,22 @@ def process_package(task=None, shortdesc=None):
 def process_other(task, shortdesc):
     remove_anchor = re.compile(r'<A NAME="[^"]*">(.*?)</A>')
     h3 = re.compile(r'<H2>(.*?)</H2>')
-    full_name = f"{task.getPkgname()}.{task.getName()}"
+    if isinstance(task, str):
+        name = task.split('.')[-1]
+        pkg = task.split('.')[0]
+        full_name = task
+    else:
+        name = task.getName()
+        pkg = task.getPkgname()
+        full_name = f"{pkg}.{name}"
     outfile = docpath / f'{full_name}.rst'
     with outfile.open('w') as fp:
-        title = task.getName()
+        title = name
         if shortdesc:
             title += ' — ' + shortdesc
-        fp.write(f'.. _{task.getName()}:\n\n')
+        fp.write(f'.. _{name}:\n\n')
         fp.write(f'{title}\n{"="*len(title)}\n\n')
-        fp.write(f'**Package: {task.getPkgname()}**\n\n')
+        fp.write(f'**Package: {pkg}**\n\n')
         fp.write('.. raw:: html\n\n')
         for line in get_help(task, device='html')[14:-2]:
             line = remove_anchor.sub(r'\1', line)
@@ -110,19 +120,17 @@ def process_other(task, shortdesc):
 
 
 mainhelp="""
-         dataio - Data format conversion package (RFITS, etc.)
-           dbms - Database management package (not yet implemented)
-         images - General image processing package
        language - The command language itself
+         images - General image processing package
           lists - List processing package
-	  local - The template local package
-       obsolete - Obsolete tasks
-	   noao - The NOAO optical astronomy packages
 	   plot - Plot package
-	  proto - Prototype or interim tasks
-       softools - Software tools package
+         dataio - Data format conversion package (RFITS, etc.)
          system - System utilities package
       utilities - Miscellaneous utilities package
+       softools - Software tools package
+	   noao - The NOAO optical astronomy packages
+	  proto - Prototype or interim tasks
+       obsolete - Obsolete tasks
 """
 
 
