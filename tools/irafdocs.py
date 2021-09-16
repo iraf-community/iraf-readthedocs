@@ -103,6 +103,9 @@ def process_other(task, shortdesc):
         pkg = task.getPkgname()
         full_name = f"{pkg}.{name}"
     outfile = docpath / f'{full_name}.rst'
+    lines = get_help(task, device='html')
+    if len(lines) < 12:
+        return None
     with outfile.open('w') as fp:
         title = name
         if shortdesc:
@@ -111,7 +114,7 @@ def process_other(task, shortdesc):
         fp.write(f'{title}\n{"="*len(title)}\n\n')
         fp.write(f'**Package: {pkg}**\n\n')
         fp.write('.. raw:: html\n\n')
-        for line in get_help(task, device='html')[14:-2]:
+        for line in lines:
             line = remove_anchor.sub(r'\1', line)
             if h3.findall(line):
                 line = '<H3>' + h3.sub(r'\1', line).capitalize() + '</H3>'
