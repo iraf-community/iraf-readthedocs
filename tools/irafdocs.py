@@ -45,6 +45,8 @@ def process_task(name, pkgname=None, desc=None):
 
 def process_package(task=None, shortdesc=None):
     packages = get_menu(task.getName())
+    if len(packages) < 1:
+        return None
     try:
         iraf.load(task.getName(), doprint=False, hush=True)
     except:
@@ -61,9 +63,11 @@ def process_package(task=None, shortdesc=None):
     
     with outfile.open('w') as fp:
         title = task.getName()
+        if title == 'clpackage':
+            title = "IRAF task help"
         if shortdesc:
             title += ' — ' + shortdesc
-        fp.write(f'{title}\n{"="*len(title)}\n\n.. toctree:: :maxdepth: 2\n\n')
+        fp.write(f'{title}\n{"="*len(title)}\n\n.. toctree:: :maxdepth: 1\n\n')
         short_name = task.getName().rsplit('.',1)[-1]
         for cname, desc in packages:
             name = process_task(cname, short_name, desc)

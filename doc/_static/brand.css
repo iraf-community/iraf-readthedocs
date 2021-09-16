@@ -1,8 +1,3 @@
-div.topbar a.brand {
-  background: url("iraflogo.png") no-repeat 10px 4px;
-  background-size: 32px 32px;
-}
-
-div.topbar ul li a.homelink {
-  display: none;
+.wy-nav-side li {
+    white-space: nowrap;
 }

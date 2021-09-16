@@ -11,23 +11,20 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.extlinks',
+    'sphinx_rtd_theme',
 ]
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
 }
 
-html_theme = "bootstrap-astropy"
+html_theme = "sphinx_rtd_theme"
 html_theme_options = {
-    'logotext1': 'IRAF',
-    'logotext2': 'IRAF',
-    'logotext3': ':docs',
-    'astropy_project_menubar': False
+    'collapse_navigation': False,
 }
 html_static_path = ['_static']
 
-# These paths are either relative to html_static_path
-# or fully qualified paths (eg. https://...)
 html_css_files = [
     'brand.css',
 ]
+#html_logo = '_static/iraflogo.png'
