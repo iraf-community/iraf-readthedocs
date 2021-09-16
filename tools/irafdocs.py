@@ -3,6 +3,8 @@
 """
 import pathlib
 import re
+from lxml import etree
+from io import StringIO
 
 from pyraf import iraf
 from pyraf.iraftask import IrafCLTask, IrafPkg
@@ -17,11 +19,11 @@ def get_help(task, device='text'):
         name = task.getName()
         pkg = task.getPkgname()
     try:
-        lines = iraf.help(f'{pkg}.{name}', device=device, Stdout=True)
+        lines = iraf.help(f'{pkg}.{name}', device=device, Stdout=True, Stderr="/dev/null")
         if len(lines) < 2:
             raise Exception
     except Exception:
-        lines = iraf.help(name, device=device, Stdout=True)
+        lines = iraf.help(name, device=device, Stdout=True, Stderr="/dev/null")
     return lines
 
 def get_menu(task):
@@ -81,7 +83,7 @@ def process_package(task=None, shortdesc=None):
         if title == 'clpackage':
             title = "IRAF task help"
         if shortdesc:
-            title += ' — ' + shortdesc
+            title += ': ' + shortdesc
         fp.write(f'{title}\n{"="*len(title)}\n\n.. toctree:: :maxdepth: 1\n\n')
         short_name = task.getName().rsplit('.',1)[-1]
         for cname, desc in packages:
@@ -92,8 +94,7 @@ def process_package(task=None, shortdesc=None):
 
 
 def process_other(task, shortdesc):
-    remove_anchor = re.compile(r'<A NAME="[^"]*">(.*?)</A>')
-    h3 = re.compile(r'<H2>(.*?)</H2>')
+    h3 = re.compile(r'<h2(.*?)>(.*?)</h2>')
     if isinstance(task, str):
         name = task.split('.')[-1]
         pkg = task.split('.')[0]
@@ -104,20 +105,30 @@ def process_other(task, shortdesc):
         full_name = f"{pkg}.{name}"
     outfile = docpath / f'{full_name}.rst'
     lines = get_help(task, device='html')
-    if len(lines) < 12:
+    if len(lines) < 10:
+        return None
+    if 'doctype html' not in lines[0].lower():
+        return None
+    try:
+        etree.parse(StringIO('\n'.join(lines)), etree.HTMLParser(recover=False))
+    except Exception as e:
+        print(f'{full_name}: {e}')
+        with open(f'err/{full_name}.html', 'w') as fp:
+            fp.write('\n'.join(lines))
+    lines = lines[14:-2]
+    if len(lines) < 10:
         return None
     with outfile.open('w') as fp:
         title = name
         if shortdesc:
-            title += ' — ' + shortdesc
+            title += ': ' + shortdesc
         fp.write(f'.. _{name}:\n\n')
         fp.write(f'{title}\n{"="*len(title)}\n\n')
         fp.write(f'**Package: {pkg}**\n\n')
         fp.write('.. raw:: html\n\n')
         for line in lines:
-            line = remove_anchor.sub(r'\1', line)
             if h3.findall(line):
-                line = '<H3>' + h3.sub(r'\1', line).capitalize() + '</H3>'
+                line = '<h3>' + h3.sub(r'\2', line).capitalize() + '</h3>'
             fp.write('  ' + line + '\n')
     return full_name
 
@@ -135,7 +146,6 @@ mainhelp="""
 	  proto - Prototype or interim tasks
        obsolete - Obsolete tasks
 """
-
 
 if __name__ == '__main__':
     process_task('clpackage')
