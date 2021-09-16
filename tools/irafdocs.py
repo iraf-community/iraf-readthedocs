@@ -9,12 +9,24 @@ from pyraf.iraftask import IrafCLTask, IrafPkg
 
 docpath = pathlib.Path('doc')
 
-def get_menu(pkgname):
+def get_help(task, device='text'):
+    name = task.getName()
+    pkg = task.getPkgname()
+    try:
+        lines = iraf.help(f'{pkg}.{name}', device=device, Stdout=True)
+        if len(lines) < 2:
+            raise Exception
+    except Exception:
+        lines = iraf.help(name, device=device, Stdout=True)
+    return lines
+
+def get_menu(task):
+    pkgname = task.getName()
     menu = list()
     if pkgname == 'clpackage':
         lines = mainhelp.splitlines()
     else:
-        lines = iraf.help(pkgname, Stdout=True)
+        lines = get_help(task)
     for line in lines:
         if '-' not in line:
             continue
@@ -44,7 +56,7 @@ def process_task(name, pkgname=None, desc=None):
 
 
 def process_package(task=None, shortdesc=None):
-    packages = get_menu(task.getName())
+    packages = get_menu(task)
     if len(packages) < 1:
         return None
     try:
@@ -89,7 +101,7 @@ def process_other(task, shortdesc):
         fp.write(f'{title}\n{"="*len(title)}\n\n')
         fp.write(f'**Package: {task.getPkgname()}**\n\n')
         fp.write('.. raw:: html\n\n')
-        for line in iraf.help(task, device='html', Stdout=True)[14:-2]:
+        for line in get_help(task, device='html')[14:-2]:
             line = remove_anchor.sub(r'\1', line)
             if h3.findall(line):
                 line = '<H3>' + h3.sub(r'\1', line).capitalize() + '</H3>'
