@@ -10,6 +10,7 @@ IRAF is maintained by the iraf-community_.
 
    tasks/index
    spp
+   clman
    unixsmg
    PyRAF tutorial <https://pyraf.readthedocs.io/>
 
