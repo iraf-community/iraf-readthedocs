@@ -11,8 +11,6 @@ from py_w3c.validators.html.validator import HTMLValidator
 from pyraf import iraf
 from pyraf.iraftask import IrafCLTask, IrafPkg
 
-docpath = pathlib.Path('doc')
-
 def get_help(task, device='text'):
     if isinstance(task, str):
         name = task.split('.')[-1]
@@ -87,7 +85,7 @@ def process_package(path, task=None, shortdesc=None):
     with outfile.open('w') as fp:
         title = name
         if title is None:
-            title = "IRAF task help"
+            title = "Package and Task Reference"
         if shortdesc:
             title += ': ' + shortdesc
         fp.write(f'{title}\n{"="*len(title)}\n\n.. toctree:: :maxdepth: 1\n\n')
@@ -169,6 +167,7 @@ mainhelp="""
 """
 
 if __name__ == '__main__':
+    docpath = pathlib.Path('doc/tasks')
     process_task(docpath, 'clpackage')
 
     
