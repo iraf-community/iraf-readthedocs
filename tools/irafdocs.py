@@ -6,6 +6,8 @@ import re
 from lxml import etree
 from io import StringIO
 
+from py_w3c.validators.html.validator import HTMLValidator
+
 from pyraf import iraf
 from pyraf.iraftask import IrafCLTask, IrafPkg
 
@@ -19,11 +21,13 @@ def get_help(task, device='text'):
         name = task.getName()
         pkg = task.getPkgname()
     try:
-        lines = iraf.help(f'{pkg}.{name}', device=device, Stdout=True, Stderr="/dev/null")
+        lines = iraf.help(f'{pkg}.{name}', device=device, Stdout=True,
+                          Stderr="/dev/null")
         if len(lines) < 2:
             raise Exception
     except Exception:
-        lines = iraf.help(name, device=device, Stdout=True, Stderr="/dev/null")
+        lines = iraf.help(name, device=device, Stdout=True,
+                          Stderr="/dev/null")
     return lines
 
 def get_menu(task):
@@ -70,27 +74,26 @@ def process_package(task=None, shortdesc=None):
         pass
     
     if task.getName() == 'clpackage':
-        full_name = None
+        name = None
         outfile = docpath / 'index.rst'
     else:
-        full_name = f"{task.getPkgname()}.{task.getName()}"
-        outfile = docpath / f'{full_name}.rst'
+        name = task.getName().rsplit('.',1)[-1]
+        outfile = docpath / f'{name}.rst'
     if outfile.exists():
-        return full_name
-    
+        return name
+        
     with outfile.open('w') as fp:
-        title = task.getName()
-        if title == 'clpackage':
+        title = name
+        if title is None:
             title = "IRAF task help"
         if shortdesc:
             title += ': ' + shortdesc
         fp.write(f'{title}\n{"="*len(title)}\n\n.. toctree:: :maxdepth: 1\n\n')
-        short_name = task.getName().rsplit('.',1)[-1]
         for cname, desc in packages:
-            name = process_task(cname, short_name, desc)
-            if name is not None:
-                fp.write(f'   {name}\n')
-    return full_name
+            ccname = process_task(cname, name, desc)
+            if ccname is not None:
+                fp.write(f'   {ccname.replace(".", "/")}\n')
+    return name
 
 
 def process_other(task, shortdesc):
@@ -103,7 +106,9 @@ def process_other(task, shortdesc):
         name = task.getName()
         pkg = task.getPkgname()
         full_name = f"{pkg}.{name}"
-    outfile = docpath / f'{full_name}.rst'
+    outfile = docpath / f'{full_name.replace(".","/")}.rst'
+    if not outfile.parent.exists():
+        outfile.parent.mkdir()
     lines = get_help(task, device='html')
     if len(lines) < 10:
         return None
@@ -115,6 +120,12 @@ def process_other(task, shortdesc):
         print(f'{full_name}: {e}')
         with open(f'err/{full_name}.html', 'w') as fp:
             fp.write('\n'.join(lines))
+    #html_validator = HTMLValidator()
+    #html_validator.validate_fragment('\n'.join(lines))
+    #for e in html_validator.errors:
+    #    if 'Duplicate ID' in e['message']:
+    #        continue
+    #    print(f"{full_name}:{e.get('lastLine')}: {e.get('message')}")
     lines = lines[14:-2]
     if len(lines) < 10:
         return None
@@ -126,10 +137,15 @@ def process_other(task, shortdesc):
         fp.write(f'{title}\n{"="*len(title)}\n\n')
         fp.write(f'**Package: {pkg}**\n\n')
         fp.write('.. raw:: html\n\n')
+        prolog = True
         for line in lines:
             if h3.findall(line):
-                line = '<h3>' + h3.sub(r'\2', line).capitalize() + '</h3>'
-            fp.write('  ' + line + '\n')
+                hdr = h3.sub(r'\2', line)
+                if hdr != 'NAME':
+                    prolog = False
+                line = '<h3>' + hdr.capitalize() + '</h3>'
+            if not prolog:
+                fp.write('  ' + line + '\n')
     return full_name
 
 
