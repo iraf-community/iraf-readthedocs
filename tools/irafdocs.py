@@ -48,7 +48,7 @@ def get_menu(task):
         menu.append((name, desc))
     return menu
 
-def process_task(name, pkgname=None, desc=None):
+def process_task(path, name, pkgname=None, desc=None):
     if pkgname is not None:
         full_name = f'{pkgname}.{name}'
     else:
@@ -56,15 +56,15 @@ def process_task(name, pkgname=None, desc=None):
     try:
         task = iraf.getTask(full_name)
     except Exception:
-        return process_other(f'{pkgname}.{name}', desc)
+        return process_other(path, f'{pkgname}.{name}', desc)
     
     if isinstance(task, IrafPkg) or full_name == 'language':
-        return process_package(task, desc)
+        return process_package(path, task, desc)
     else:
-        return process_other(task, desc)
+        return process_other(path, task, desc)
 
 
-def process_package(task=None, shortdesc=None):
+def process_package(path, task=None, shortdesc=None):
     packages = get_menu(task)
     if len(packages) < 1:
         return None
@@ -75,13 +75,15 @@ def process_package(task=None, shortdesc=None):
     
     if task.getName() == 'clpackage':
         name = None
-        outfile = docpath / 'index.rst'
+        outfile = path / 'index.rst'
     else:
         name = task.getName().rsplit('.',1)[-1]
-        outfile = docpath / f'{name}.rst'
+        outfile = path / name / 'index.rst'
     if outfile.exists():
         return name
-        
+    if not outfile.parent.exists():
+        outfile.parent.mkdir()
+
     with outfile.open('w') as fp:
         title = name
         if title is None:
@@ -89,14 +91,16 @@ def process_package(task=None, shortdesc=None):
         if shortdesc:
             title += ': ' + shortdesc
         fp.write(f'{title}\n{"="*len(title)}\n\n.. toctree:: :maxdepth: 1\n\n')
+        if name is not None:
+            path = path / name
         for cname, desc in packages:
-            ccname = process_task(cname, name, desc)
+            ccname = process_task(path, cname, name, desc)
             if ccname is not None:
-                fp.write(f'   {ccname.replace(".", "/")}\n')
-    return name
+                fp.write(f'   {ccname}\n')
+    return f'{name}/index'
 
 
-def process_other(task, shortdesc):
+def process_other(path, task, shortdesc):
     h3 = re.compile(r'<h2(.*?)>(.*?)</h2>')
     if isinstance(task, str):
         name = task.split('.')[-1]
@@ -106,7 +110,7 @@ def process_other(task, shortdesc):
         name = task.getName()
         pkg = task.getPkgname()
         full_name = f"{pkg}.{name}"
-    outfile = docpath / f'{full_name.replace(".","/")}.rst'
+    outfile = path / f'{name}.rst'
     if not outfile.parent.exists():
         outfile.parent.mkdir()
     lines = get_help(task, device='html')
@@ -129,6 +133,7 @@ def process_other(task, shortdesc):
     lines = lines[14:-2]
     if len(lines) < 10:
         return None
+
     with outfile.open('w') as fp:
         title = name
         if shortdesc:
@@ -146,7 +151,7 @@ def process_other(task, shortdesc):
                 line = '<h3>' + hdr.capitalize() + '</h3>'
             if not prolog:
                 fp.write('  ' + line + '\n')
-    return full_name
+    return name
 
 
 mainhelp="""
@@ -164,6 +169,6 @@ mainhelp="""
 """
 
 if __name__ == '__main__':
-    process_task('clpackage')
+    process_task(docpath, 'clpackage')
 
     
