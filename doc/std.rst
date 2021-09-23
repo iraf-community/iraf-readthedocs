@@ -800,7 +800,7 @@ The SPP Language
 
 The IRAF Subset Preprocessor language (SPP) implements a subset of the
 full language scheduled for development in 1984. The SPP language is
-defined by the SPP Reference Manual [5]. Be warned that present
+defined by the SPP Reference Manual [5]_. Be warned that present
 compilers for the SPP language accept constructs that are not permitted
 by the language standard. As better compilers become available, programs
 using such constructs (i.e., parenthesis instead of brackets for array
@@ -968,7 +968,7 @@ Tasks and Processes
 
 The **task** statement of the SPP language is used to group one or
 more compiled tasks (programs) together to form an executable
-process. As noted earlier (`Packages and Tasks`_), the grouping
+process. As noted earlier (see `Packages and Tasks`_), the grouping
 together of programs to form a physical process is a detail which is
 irrelevant to the structure of the package.
 
@@ -1353,7 +1353,7 @@ the *define*. Defined constants which are referenced by more than one
 file should be placed in an ".h" include file.
 
 A number of numerical constants are predefined in the SPP language. A
-full list is given in reference [5]. Some of the more commonly used of
+full list is given in reference [5]_. Some of the more commonly used of
 these global constants are shown below. To save space, those constants
 pertaining to i/o (READ_ONLY, TEXT_FILE, STDIN, STDOUT, etc.) are
 omitted, as are the type codes (TY_INT, TY_REAL, etc.), and the type
