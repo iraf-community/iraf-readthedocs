@@ -2,9 +2,7 @@
 CL Programmer’s Manual
 ======================
 
-:Authors: - Elwood Downey
-	  - Douglas Tody
-	  - George H. Jacoby
+:Authors: - Elwood Downey, Douglas Tody, George H. Jacoby
 :Date: December 1982 (revised September 1983)
 :Abstract: This document serves as a programmer’s manual for the IRAF
  Command Language version 1.0. CL tasks, packages, parameter files,
@@ -1210,7 +1208,7 @@ file **coord.x**::
       # Print result on the standard output, and output the
       # computed air mass to the CL parameter "airmass".
 
-      call printf ("airmass: %10.3f\\n")
+      call printf ("airmass: %10.3f\n")
       call pargr (airmass)
       call clputr ("airmass", airmass)
   end
@@ -1248,7 +1246,7 @@ file **coord.x**::
 	  else if (nscan() == 2) # no year1 given
 	      year1 = default_year1
 	  else if (nscan() < 2) {
-	      call fprintf (STDERR, "invalid coordinates\\n")
+	      call fprintf (STDERR, "invalid coordinates\n")
 	      next # do next iteration
 	  }
 
@@ -1256,7 +1254,7 @@ file **coord.x**::
 	  # print result on standard output (hms hms yyyy.y).
 
 	  call precess (ra1, dec1, ra2, dec2, year1, year2)
-	  call printf ("ra: %12.1h dec: %12.1h %7.1f\\n")
+	  call printf ("ra: %12.1h dec: %12.1h %7.1f\n")
 	      call pargd (ra2)
 	      call pargd (dec2)
 	      call pargr (year2)
