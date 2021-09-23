@@ -6,7 +6,7 @@ import re
 from lxml import etree
 from io import StringIO
 
-from py_w3c.validators.html.validator import HTMLValidator
+#from py_w3c.validators.html.validator import HTMLValidator
 
 from pyraf import iraf
 from pyraf.iraftask import IrafCLTask, IrafPkg
@@ -70,7 +70,7 @@ def process_package(path, task=None, shortdesc=None):
         iraf.load(task.getName(), doprint=False, hush=True)
     except:
         pass
-    
+
     if task.getName() == 'clpackage':
         name = None
         outfile = path / 'index.rst'
@@ -116,18 +116,23 @@ def process_other(path, task, shortdesc):
         return None
     if 'doctype html' not in lines[0].lower():
         return None
+    err = False
+    #print(f'{full_name}...')
     try:
         etree.parse(StringIO('\n'.join(lines)), etree.HTMLParser(recover=False))
     except Exception as e:
         print(f'{full_name}: {e}')
-        with open(f'err/{full_name}.html', 'w') as fp:
-            fp.write('\n'.join(lines))
+        err = True
     #html_validator = HTMLValidator()
     #html_validator.validate_fragment('\n'.join(lines))
     #for e in html_validator.errors:
     #    if 'Duplicate ID' in e['message']:
     #        continue
     #    print(f"{full_name}:{e.get('lastLine')}: {e.get('message')}")
+    #    err = True
+    if err:
+        with open(f'err/{full_name}.html', 'w') as fp:
+            fp.write('\n'.join(lines))
     lines = lines[14:-2]
     if len(lines) < 10:
         return None
