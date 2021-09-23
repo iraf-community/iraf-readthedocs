@@ -177,21 +177,21 @@ be used wherever an integer constant would be used.
 
 =========== ========================================
 ``'a'``     integer equivalent of the letter 'a'
-``'\\n'``   integer equiv. of the newline character
-``'\\007'`` the octal integer 07B
-``'\\\\'``  the integer equiv. of the character '\'
+``'\n'``    integer equiv. of the newline character
+``'\007'``  the octal integer 07B
+``'\\'``    the integer equiv. of the character '\\'
 =========== ========================================
 
-The backslash character (``\\``) is used to form "escape sequences".
+The backslash character (``\``) is used to form "escape sequences".
 The following escape sequences are defined:
 
-======= ===============
-``\\b`` backspace
-``\\f`` formfeed
-``\\n`` newline
-``\\r`` carriage return
-``\\t`` tab
-======= ===============
+====== ===============
+``\b`` backspace
+``\f`` formfeed
+``\n`` newline
+``\r`` carriage return
+``\t`` tab
+====== ===============
 
 
 String Constants
@@ -1483,7 +1483,7 @@ follows::
    define  CH_CCL          '['             # begin character class
    define  CH_CCLEND       ']'             # end character class
    define  CH_RANGE        '-'             # as in [a-z]
-   define  CH_ESCAPE       '\\'            # escape character
+   define  CH_ESCAPE       '\'             # escape character
    define  CH_WHITESPACE   '#'             # match optional whitespace
    define  CH_IGNORECASE   '{'             # begin ignoring case
    define  CH_MATCHCASE    '}'             # begin checking case
