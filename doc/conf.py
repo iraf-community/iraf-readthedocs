@@ -28,4 +28,4 @@ html_static_path = ['_static']
 html_css_files = [
     'brand.css',
 ]
-#html_logo = '_static/iraflogo.png'
+html_logo = '_static/logo.svg'
