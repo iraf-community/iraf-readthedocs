@@ -4,6 +4,7 @@
 import pathlib
 import re
 from lxml import etree
+from lxml.html import html5parser
 from io import StringIO
 
 #from py_w3c.validators.html.validator import HTMLValidator
@@ -99,7 +100,8 @@ def process_package(path, task=None, shortdesc=None):
 
 
 def process_other(path, task, shortdesc):
-    h3 = re.compile(r'<h2(.*?)>(.*?)</h2>')
+    h3 = re.compile(r'<h2>(.*?)</h2>')
+    sec = re.compile(r'<section id="s_(.*?)">')
     if isinstance(task, str):
         name = task.split('.')[-1]
         pkg = task.split('.')[0]
@@ -119,7 +121,7 @@ def process_other(path, task, shortdesc):
     err = False
     #print(f'{full_name}...')
     try:
-        etree.parse(StringIO('\n'.join(lines)), etree.HTMLParser(recover=False))
+        etree.parse(StringIO('\n'.join(lines)), html5parser.HTMLParser(strict=True))
     except Exception as e:
         print(f'{full_name}: {e}')
         err = True
@@ -148,10 +150,12 @@ def process_other(path, task, shortdesc):
         prolog = True
         for line in lines:
             if h3.findall(line):
-                hdr = h3.sub(r'\2', line)
-                if hdr != 'NAME':
-                    prolog = False
+                hdr = h3.sub(r'\1', line)
                 line = '<h3>' + hdr.capitalize() + '</h3>'
+            if sec.findall(line):
+                section = sec.sub(r'\1', line)
+                if section != 'name':
+                    prolog = False
             if line.strip() == '<pre>':
                 line = '<div class="highlight-default-notranslate">' + line
             if line.strip() == '</pre>':
