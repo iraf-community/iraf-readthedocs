@@ -152,6 +152,10 @@ def process_other(path, task, shortdesc):
                 if hdr != 'NAME':
                     prolog = False
                 line = '<h3>' + hdr.capitalize() + '</h3>'
+            if line.strip() == '<pre>':
+                line = '<div class="highlight-default-notranslate">' + line
+            if line.strip() == '</pre>':
+                line += '</div>'
             if not prolog:
                 fp.write('  ' + line + '\n')
     return name
