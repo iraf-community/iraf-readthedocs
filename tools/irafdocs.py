@@ -12,6 +12,35 @@ from io import StringIO
 from pyraf import iraf
 from pyraf.iraftask import IrafCLTask, IrafPkg
 
+def tabwithspace(s):
+    s1 = ''
+    i = 0
+    in_entity = False
+    for c in s:
+        if c == '\t':
+            s1 += ' ' * (8 - i % 8)
+            i += (8 - i % 8)
+        else:
+            s1 += c
+            if c == '&':
+                in_entity = True
+            if in_entity and c == ';':
+                in_entity = False
+            if not in_entity:
+                i += 1
+    return s1
+
+def min_indention(lines):
+    return min((len(l) - len(l.lstrip()) for l in lines if l.strip() != ''))
+
+
+def unindent(lines):
+    if len(lines) == 0:
+        return lines
+    u = min_indention(lines)
+    return [(l[u:] if l.strip() != '' else '')
+            for l in lines]
+
 def get_help(task, device='text'):
     if isinstance(task, str):
         name = task.split('.')[-1]
@@ -27,7 +56,66 @@ def get_help(task, device='text'):
     except Exception:
         lines = iraf.help(name, device=device, Stdout=True,
                           Stderr="/dev/null")
-    return lines
+
+    if device == 'text':
+        return lines
+
+    if len(lines) < 10:
+        return None
+    if 'doctype html' not in lines[0].lower():
+        return None
+    err = False
+    #print(f'{full_name}...')
+#    try:
+#        etree.parse(StringIO('\n'.join(lines)), html5parser.HTMLParser(strict=True))
+#    except Exception as e:
+#        print(f'{full_name}: {e}')
+#        err = True
+    #html_validator = HTMLValidator()
+    #html_validator.validate_fragment('\n'.join(lines))
+    #for e in html_validator.errors:
+    #    if 'Duplicate ID' in e['message']:
+    #        continue
+    #    print(f"{full_name}:{e.get('lastLine')}: {e.get('message')}")
+    #    err = True
+    if err:
+        with open(f'err/{full_name}.html', 'w') as fp:
+            fp.write('\n'.join(lines))
+#    lines = lines[14:-2]
+    lines = lines[:-2]
+    if len(lines) < 10:
+        return None
+    
+    prolog = True
+    olines = []
+    h3 = re.compile(r'<h2>(.*?)</h2>')
+    sec = re.compile(r'<section id="s_(.*?)">')
+    in_code = False
+    codelines = []
+    for line in lines:
+        if h3.findall(line):
+            hdr = h3.sub(r'\1', line)
+            line = '<h3>' + hdr.capitalize() + '</h3>'
+        if sec.findall(line):
+            section = sec.sub(r'\1', line)
+            if section != 'name':
+                prolog = False
+        if '<pre>' in line:
+            line = line.replace('<pre>',
+                                '<div class="highlight-default-notranslate"><pre>')
+            codelines = []
+            olines.append(line)
+            in_code = True
+        elif '</pre>' in line:
+            line = line.replace('</pre>', '</pre></div>')
+            olines += unindent(codelines)
+            olines.append(line)
+            in_code = False
+        elif not prolog and not in_code:
+            olines.append(line)
+        elif in_code:
+            codelines.append(tabwithspace(line.replace('<br>', '')).rstrip())
+    return olines
 
 def get_menu(task):
     pkgname = task.getName()
@@ -100,8 +188,6 @@ def process_package(path, task=None, shortdesc=None):
 
 
 def process_other(path, task, shortdesc):
-    h3 = re.compile(r'<h2>(.*?)</h2>')
-    sec = re.compile(r'<section id="s_(.*?)">')
     if isinstance(task, str):
         name = task.split('.')[-1]
         pkg = task.split('.')[0]
@@ -114,29 +200,7 @@ def process_other(path, task, shortdesc):
     if not outfile.parent.exists():
         outfile.parent.mkdir()
     lines = get_help(task, device='html')
-    if len(lines) < 10:
-        return None
-    if 'doctype html' not in lines[0].lower():
-        return None
-    err = False
-    #print(f'{full_name}...')
-    try:
-        etree.parse(StringIO('\n'.join(lines)), html5parser.HTMLParser(strict=True))
-    except Exception as e:
-        print(f'{full_name}: {e}')
-        err = True
-    #html_validator = HTMLValidator()
-    #html_validator.validate_fragment('\n'.join(lines))
-    #for e in html_validator.errors:
-    #    if 'Duplicate ID' in e['message']:
-    #        continue
-    #    print(f"{full_name}:{e.get('lastLine')}: {e.get('message')}")
-    #    err = True
-    if err:
-        with open(f'err/{full_name}.html', 'w') as fp:
-            fp.write('\n'.join(lines))
-    lines = lines[14:-2]
-    if len(lines) < 10:
+    if lines is None:
         return None
 
     with outfile.open('w') as fp:
@@ -146,22 +210,9 @@ def process_other(path, task, shortdesc):
         fp.write(f'.. _{name}:\n\n')
         fp.write(f'{title}\n{"="*len(title)}\n\n')
         fp.write(f'**Package: {pkg}**\n\n')
-        fp.write('.. raw:: html\n\n')
-        prolog = True
-        for line in lines:
-            if h3.findall(line):
-                hdr = h3.sub(r'\1', line)
-                line = '<h3>' + hdr.capitalize() + '</h3>'
-            if sec.findall(line):
-                section = sec.sub(r'\1', line)
-                if section != 'name':
-                    prolog = False
-            if line.strip() == '<pre>':
-                line = '<div class="highlight-default-notranslate">' + line
-            if line.strip() == '</pre>':
-                line += '</div>'
-            if not prolog:
-                fp.write('  ' + line + '\n')
+        fp.write('.. raw:: html\n\n  ')
+        fp.write('\n  '.join(lines))
+        fp.write('\n')
     return name
 
 
