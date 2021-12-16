@@ -3,7 +3,7 @@ import sys
 
 
 project = 'IRAF'
-release = '2.16.2'
+release = '2.17'
 version = release
 copyright = '1986 Association of Universities for Research in Astronomy Inc.'
 
