@@ -1,7 +1,7 @@
 IRAF documentation
 ==================
 
-Welcome to the IRAF documentaion! IRAF is the Image Reduction and Analysis
+Welcome to the IRAF documentation! IRAF is the Image Reduction and Analysis
 Facility, a general purpose software system for the reduction and
 analysis of astronomical data. After reaching its enf of life in 2019,
 IRAF is maintained by the iraf-community_.
