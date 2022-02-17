@@ -6,6 +6,7 @@ import re
 from lxml import etree
 from lxml.html import html5parser
 from io import StringIO
+import json
 
 #from py_w3c.validators.html.validator import HTMLValidator
 
@@ -135,6 +136,7 @@ def get_menu(task):
         menu.append((name, desc))
     return menu
 
+redirs = {}
 def process_task(path, name, pkgname=None, desc=None):
     if pkgname is not None:
         full_name = f'{pkgname}.{name}'
@@ -184,6 +186,7 @@ def process_package(path, task=None, shortdesc=None):
             ccname = process_task(path, cname, name, desc)
             if ccname is not None:
                 fp.write(f'   {ccname}\n')
+    redirs[f'tasks/by-name/{name}'] = '../' + str(path.relative_to('doc/tasks') / f'index.html')
     return f'{name}/index'
 
 
@@ -213,6 +216,8 @@ def process_other(path, task, shortdesc):
         fp.write('.. raw:: html\n\n  ')
         fp.write('\n  '.join(lines))
         fp.write('\n')
+
+    redirs[f'tasks/by-name/{name}'] = '../' + str(path.relative_to('doc/tasks') / f'{name}.html')
     return name
 
 
@@ -233,5 +238,5 @@ mainhelp="""
 if __name__ == '__main__':
     docpath = pathlib.Path('doc/tasks')
     process_task(docpath, 'clpackage')
-
-    
+    with open('doc/redirects.json', 'w') as fp:
+        json.dump(redirs, fp)

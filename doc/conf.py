@@ -1,6 +1,6 @@
 import os
 import sys
-
+import json
 
 project = 'IRAF'
 release = '2.17'
@@ -13,6 +13,7 @@ extensions = [
     'sphinx.ext.autosectionlabel',
     'sphinx.ext.extlinks',
     'sphinx_rtd_theme',
+    'sphinx_reredirects',
 ]
 
 intersphinx_mapping = {
@@ -29,3 +30,6 @@ html_css_files = [
     'brand.css',
 ]
 html_logo = '_static/logo.svg'
+
+with open('redirects.json') as fp:
+    redirects = json.load(fp)
