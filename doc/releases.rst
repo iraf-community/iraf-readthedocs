@@ -3,6 +3,7 @@ IRAF release notes
 
 .. toctree:: :maxdepth: 1
 
+    v28revs
     v29revs
     v210revs
     v211revs
