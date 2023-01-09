@@ -751,10 +751,7 @@ and the current interface is not yet a “frozen” interface.
 QPOE interface changes
 ^^^^^^^^^^^^^^^^^^^^^^
 
-::
-
-   The QPOE (event list image) interface has been extended to add routines to
-
+The QPOE (event list image) interface has been extended to add routines to
 store MWCS objects in the QPOE header. By default, there is one MWCS per
 QPOE file, stored encoded in a machine independent binary format in a
 variable length array *qpwcs* of type *opaque*. The new routines are as
@@ -787,10 +784,7 @@ the parameter has to be added to the header.
 IEEE support routines added
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-::
-
-   Routines for IEEE floating to native floating conversions have been added to
-
+Routines for IEEE floating to native floating conversions have been added to
 the MII and OSB interfaces. The new MII routines are as follows:
 
 ::
