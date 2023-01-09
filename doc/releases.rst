@@ -1,4 +1,4 @@
-IRAF release notes
+IRAF Release Notes
 ==================
 
 .. toctree:: :maxdepth: 1
