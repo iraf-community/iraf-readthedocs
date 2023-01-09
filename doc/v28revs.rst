@@ -1,9 +1,8 @@
-previous: 2.7 · `next: 2.9 <2.9>`__ · `index <index>`__
-
 IRAF Version 2.8 Revisions Summary
 ==================================
 
-June 30, 1989
+:Authors: IRAF Group
+:Date: June 30, 1989
 
 Introduction
 ------------
