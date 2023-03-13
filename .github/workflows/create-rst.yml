@@ -1,6 +1,9 @@
 name: IRAF Readthedocs generation
 
-on: [push]
+on:
+  push:
+  schedule:
+    - cron: '30 5 * * 1,4'
 
 jobs:
   create-rst:
