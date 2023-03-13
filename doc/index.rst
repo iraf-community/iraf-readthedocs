@@ -11,6 +11,8 @@ IRAF is maintained by the iraf-community_.
    tasks/index
    spp
    clman
+   std
+   std_gl
    unixsmg
    releases/index
    PyRAF tutorial <https://pyraf.readthedocs.io/>
