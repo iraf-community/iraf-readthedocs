@@ -1,0 +1,54 @@
+specred: Generic slit and fiber spectral reduction package
+==========================================================
+
+.. toctree:: :maxdepth: 1
+
+   apall
+   apdefault
+   apedit
+   apfind
+   apfit
+   apflatten
+   apmask
+   apnormalize
+   aprecenter
+   apresize
+   apscatter
+   apsum
+   aptrace
+   background
+   bplot
+   calibrate
+   continuum
+   deredden
+   dispcor
+   dopcor
+   fitprofs
+   identify
+   illumination
+   lscombine
+   msresp1d
+   odcombine
+   refspectra
+   reidentify
+   response
+   sapertures
+   sarith
+   scombine
+   scopy
+   sensfunc
+   setairmass
+   setjd
+   sfit
+   sflip
+   skysub
+   skytweak
+   slist
+   specplot
+   specshift
+   splot
+   standard
+   telluric
+   transform
+   dofibers
+   doslit
