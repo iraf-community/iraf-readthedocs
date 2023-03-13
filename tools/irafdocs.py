@@ -1,8 +1,10 @@
 #! /usr/bin/env python3
 """irafdocs.py: compile IRAF documentation
 """
+import os
 import pathlib
 import re
+import shutil
 from lxml import etree
 from lxml.html import html5parser
 from io import StringIO
@@ -235,8 +237,21 @@ mainhelp="""
        obsolete - Obsolete tasks
 """
 
+def copy_static(target):
+    for target_path in target.rglob("*.rst"):
+        if str(target_path.relative_to(target)) != "index.rst":
+            target_path.unlink()
+
+    src = pathlib.Path(os.environ["iraf"]) / "doc"
+    for src_path in src.rglob("*.rst"):
+        target_path = target / src_path.relative_to(src)
+        if str(target_path.relative_to(target)) != "index.rst":
+            target_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(src_path, target_path)
+
 if __name__ == '__main__':
-    docpath = pathlib.Path('doc/tasks')
-    process_task(docpath, 'clpackage')
-    with open('doc/redirects.json', 'w') as fp:
+    docpath = pathlib.Path('doc')
+    copy_static(docpath)
+    process_task(docpath / 'tasks', 'clpackage')
+    with (docpath / 'redirects.json').open('w') as fp:
         json.dump(redirs, fp)
