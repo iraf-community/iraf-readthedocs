@@ -1,0 +1,39 @@
+name: IRAF Readthedocs generation
+
+on: [push]
+
+jobs:
+  create-rst:
+    runs-on: ubuntu-latest
+
+    env:
+      iraf: ${{ github.workspace }}/iraf/
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Checkout latest IRAF master
+        uses: actions/checkout@v2
+        with:
+          repository: iraf-community/iraf
+          path: ${{ env.iraf }}
+
+      - name: Install IRAF binaries and PyRAF
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y --no-install-recommends iraf iraf-dev python3-pyraf python3-lxml python3-html5lib
+          ln -sf /usr/lib/iraf/bin ${iraf}bin
+          ln -sf /usr/lib/iraf/unix/bin ${iraf}unix/bin
+
+      - name: Create ReStructuredText documents
+        run: |
+          python3 tools/irafdocs.py 
+
+      - name: Push new docs
+        run: |
+          git config --global user.name 'IRAF'
+          git config --global user.email 'iraf-community@users.noreply.github.com' 
+          git add --all doc
+          git commit -m "Auto-updated IRAF documentation" || exit 0
+          git push
