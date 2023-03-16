@@ -3,7 +3,7 @@ name: IRAF Readthedocs generation
 on:
   push:
   schedule:
-    - cron: '30 5 * * 1,4'
+    - cron: '30 5 * * 1,3,5'
 
 jobs:
   create-rst:
@@ -11,6 +11,7 @@ jobs:
 
     env:
       iraf: ${{ github.workspace }}/iraf/
+      TERM: ansi
 
     steps:
       - name: Checkout repository
@@ -25,9 +26,8 @@ jobs:
       - name: Install IRAF binaries and PyRAF
         run: |
           sudo apt-get update -y
-          sudo apt-get install -y --no-install-recommends iraf iraf-dev python3-pyraf python3-lxml python3-html5lib
+          sudo apt-get install -y --no-install-recommends iraf python3-pyraf python3-lxml python3-html5lib
           ln -sf /usr/lib/iraf/bin ${iraf}bin
-          ln -sf /usr/lib/iraf/unix/bin ${iraf}unix/bin
 
       - name: Create ReStructuredText documents
         run: |
@@ -35,7 +35,7 @@ jobs:
 
       - name: Push new docs
         run: |
-          git config --global user.name 'IRAF'
+          git config --global user.name '[bot] IRAF doc autoupdate'
           git config --global user.email 'iraf-community@users.noreply.github.com' 
           git add --all doc
           git commit -m "Auto-updated IRAF documentation" || exit 0
