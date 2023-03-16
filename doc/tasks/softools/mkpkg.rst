@@ -26,8 +26,8 @@ mkpkg: Make or update an object library or package
   </dd>
   </dl>
   <dl>
-  <dt><b><b>-f file</b></b></dt>
-  <!-- Sec='ARGUMENTS' Level=0 Label='' Line='\fB-f file\fR' -->
+  <dt><b><b>-f </b><i>file</i></b></dt>
+  <!-- Sec='ARGUMENTS' Level=0 Label='' Line='\fB-f \fIfile\fR' -->
   <dd>Set the name of the file to be interpreted (default: <span style="font-family: monospace;">"mkpkg"</span>).
   The special value <span style="font-family: monospace;">"stdin"</span> (lower case) allows commands to be entered
   interactively from the standard input, e.g., for debugging <i>mkpkg</i>.
@@ -60,27 +60,16 @@ mkpkg: Make or update an object library or package
   </dd>
   </dl>
   <dl>
-  <dt><b><b>-u</b>    [AOSVS/IRAF only]</b></dt>
-  <!-- Sec='ARGUMENTS' Level=0 Label='' Line='\fB-u\fR    [AOSVS/IRAF only]' -->
-  <dd>Forcibly update the dates of improperly dated library modules.  This option
-  is used when a binary archive is restored on a machine which cannot restore
-  the file modify dates.  In this case, all source file dates would appear to
-  have been modified since the libraries were updated, causing all sources to
-  be recompiled.  By running <i>mkpkg</i> with the <i>-u</i> flag, one can update
-  the library module dates without recompiling the associated files.  This is
-  done by setting the date of each library module to be no older than the
-  file <i>hlib$iraf.h</i>, which should be <span style="font-family: monospace;">"touched"</span> after the system has fully
-  been restored to disk to mark the installation time.  Note that files which
-  have been modified <i>since</i> the system was restored to disk will still
-  cause the affected library modules to be updated, even when the <i>-u</i> flag
-  is specfied.
-  </dd>
-  </dl>
-  <dl>
   <dt><b><b>-v</b></b></dt>
   <!-- Sec='ARGUMENTS' Level=0 Label='' Line='\fB-v\fR' -->
   <dd>Verbose mode.  A message is printed whenever a file is touched.
   Recommended when running large mkpkg jobs in batch mode.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b><b>-x</b>, <b>-g</b></b></dt>
+  <!-- Sec='ARGUMENTS' Level=0 Label='' Line='\fB-x\fR, \fB-g\fR' -->
+  <dd>Define the symbol <span style="font-family: monospace;">"DEBUG"</span> to build for debugging.
   </dd>
   </dl>
   <dl>
@@ -170,7 +159,6 @@ mkpkg: Make or update an object library or package
   directory or a logical directory.
   </p>
   <div class="highlight-default-notranslate"><pre>
-  as$             where .s files go               host$as/
   bin$            installed executables           iraf$bin/
   dev$            device tables                   iraf$dev/
   hlib$           machdep header files            host$hlib/
@@ -576,7 +564,15 @@ mkpkg: Make or update an object library or package
   <!-- Sec='DESCRIPTION' Level=1 Label='' Line='\fB$generic\fR [-k] [-p prefix] [-t types] [-o root] files' -->
   <dd><br>
   Run the generic preprocessor on the named files.  The generic preprocessor
-  is an IRAF bootstrap utility and may not be available on non-UNIX hosts.
+  is an IRAF bootstrap utility.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b><b>$xyacc</b> [options] file</b></dt>
+  <!-- Sec='DESCRIPTION' Level=1 Label='' Line='\fB$xyacc\fR [options] file' -->
+  <dd><br>
+  Run the xyacc parser generator on the named files.  The yacc parser
+  generator is an IRAF bootstrap utility.
   </dd>
   </dl>
   <dl>

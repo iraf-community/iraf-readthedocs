@@ -16,23 +16,6 @@ xc: Compile and/or link a program
   <section id="s_flags">
   <h3>Flags</h3>
   <dl>
-  <dt><b>-a</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-a' -->
-  <dd>To support VMS link options file.  Next file is taken to be the VMS name
-  of a link options file.  This is primarily for using long lists of files
-  or libraries and not for actual VMS Linker options, since XC adds continuation
-  characters where it believes it is appropriate.
-  </dd>
-  </dl>
-  <dl>
-  <dt><b>-C</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-C' -->
-  <dd>Tells fortran to do array bound and other checking.
-  By default no checking is done.  From DCL fortran usually
-  does array and overflow checking which is not used here.
-  </dd>
-  </dl>
-  <dl>
   <dt><b>-c</b></dt>
   <!-- Sec='FLAGS' Level=0 Label='' Line='-c' -->
   <dd>Tells <i>xc</i> not to link, i.e., not to create an executable.
@@ -53,7 +36,7 @@ xc: Compile and/or link a program
   <dl>
   <dt><b>-g</b></dt>
   <!-- Sec='FLAGS' Level=0 Label='' Line='-g' -->
-  <dd>Generates debugging information and (for VMS), links in the debugger.
+  <dd>Generates debugging information.
   </dd>
   </dl>
   <dl>
@@ -66,52 +49,65 @@ xc: Compile and/or link a program
   </dd>
   </dl>
   <dl>
-  <dt><b>-i2</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-i2' -->
-  <dd>Tells fortran to use I*2 by default.
+  <dt><b>-H</b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-H' -->
+  <dd>Link a host program as with <span style="font-family: monospace;">"-h"</span>, but include the VOS libraries.
   </dd>
   </dl>
   <dl>
-  <dt><b>-i4</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-i4' -->
-  <dd>Tells fortran to use I*4 by default.
+  <dt><b>-A</b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-A' -->
+  <dd>Force architecture specific include files.
   </dd>
   </dl>
   <dl>
-  <dt><b>-l<i>lib</i></b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-l\fIlib\fR' -->
-  <dd>This tells the linker which libraries besides the standard
-  ones to include.  These must be either on the current
+  <dt><b>-C</b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-C' -->
+  <dd>Link a host program which has a C main.  We may need to tweak the
+  command line as a special case here since we normally assume Fortran
+  sources.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>-/<i>flag</i>, -//<i>foo</i></b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-/\fIflag\fR, -//\fIfoo\fR' -->
+  <dd>Pass <i>flag</i> to host compiler without further
+  interpretation. <span style="font-family: monospace;">"-/<i>flag</i><span style="font-family: monospace;">" becomes "</span>-<i>foo</i><span style="font-family: monospace;">", "</span>-//<i>foo</i><span style="font-family: monospace;">"
+  becomes "</span><i>foo</i><span style="font-family: monospace;">".
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>-D<i>define</i></b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-D\fIdefine\fR' -->
+  <dd>Pass a -D<i>define</i> flag on to the host compiler.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>-I<i>dir</i></b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-I\fIdir\fR' -->
+  <dd>Pass a -I<i>dir</i> flag on to the host compiler.  A special case is
+  <span style="font-family: monospace;">"-Inolibc"</span> which disables automatic inclusion of the IRAF LIBC
+  includes (hlib$libc).
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>-l<i>lib</i>, -L<i>dir</i></b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-l\fIlib\fR, -L\fIdir\fR' -->
+  <dd>This tells the linker which library files or library directories
+  besides the standard ones to include.  These must be either on the current
   directory, or in an IRAF system library (lib$ or hlib$).
   The library specification must be immediately after the option as in
   <span style="font-family: monospace;">"-lxtools"</span>.  No other option may follow the <span style="font-family: monospace;">'l'</span> option in the same
-  argument as in -lxtoolsO.	
-  </dd>
-  </dl>
-  <dl>
-  <dt><b>-L</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-L' -->
-  <dd>Creates a list file. VMS specific.
-  </dd>
-  </dl>
-  <dl>
-  <dt><b>-M, -m</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-M, -m' -->
-  <dd>Tells the linker to create a link map.
-  </dd>
-  </dl>
-  <dl>
-  <dt><b>-n</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-n' -->
-  <dd>Not really supported under VMS since <span style="font-family: monospace;">"normal"</span> users
-  cannot install images.  In Unix this is just a link
-  option to make a shareable image.
+  argument as in -lxtoolsO.
   </dd>
   </dl>
   <dl>
   <dt><b>-N</b></dt>
   <!-- Sec='FLAGS' Level=0 Label='' Line='-N' -->
-  <dd>Same as -z for VMS.
+  <dd>Generates the output temp file in /tmp during the link, then moves it
+  to the output directory in one operation when done.  For cases such as
+  linking in an NFS-mounted directory, where all the NFS i/o may slow
+  the link down excessively.
   </dd>
   </dl>
   <dl>
@@ -151,17 +147,6 @@ xc: Compile and/or link a program
   </dd>
   </dl>
   <dl>
-  <dt><b>-P</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-P' -->
-  <dd>Check portability.  This should be used all of the time in IRAF,
-  but the VMS C compiler forces the use of non-standard
-  constructs in some cases.  Also &lt;stdio.h&gt; and &lt;ctype.h&gt; get
-  complaints for the above reason.  This may be used and probably
-  should when working with Fortran due to Dec non-standard
-  extension.
-  </dd>
-  </dl>
-  <dl>
   <dt><b>-q</b></dt>
   <!-- Sec='FLAGS' Level=0 Label='' Line='-q' -->
   <dd>Disable optimization.  Opposite of -O.  Object code will be optimized
@@ -172,12 +157,6 @@ xc: Compile and/or link a program
   <dt><b>-s</b></dt>
   <!-- Sec='FLAGS' Level=0 Label='' Line='-s' -->
   <dd>Strips all symbols and debugging information.
-  </dd>
-  </dl>
-  <dl>
-  <dt><b>-S</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-S' -->
-  <dd>Same as -s for VMS.
   </dd>
   </dl>
   <dl>
@@ -194,10 +173,9 @@ xc: Compile and/or link a program
   </dd>
   </dl>
   <dl>
-  <dt><b>-X, -x</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-X, -x' -->
-  <dd>Compile and link for debugging.  In VMS/IRAF, links in the VMS debugger
-  and symbols.
+  <dt><b>-x</b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-x' -->
+  <dd>Compile and link for debugging.
   </dd>
   </dl>
   <dl>
@@ -206,49 +184,46 @@ xc: Compile and/or link a program
   <dd>Create a non-shareable image (default).
   </dd>
   </dl>
+  <dl>
+  <dt><b>-V</b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-V' -->
+  <dd>Print XC version identification.
+  </dd>
+  </dl>
   </section>
   <section id="s_description">
   <h3>Description</h3>
   <p>
   XC is a machine independent utility for compiling and linking IRAF
-  tasks or files.  The XC utility may also be used to compile and/or link
-  non-IRAF files and tasks.  The VMS version of XC supports all of the
-  important flags except -D which VMS C doesn't support in any way.
-  It can be used to generate fortran from xpp or ratfor code, to compile any
-  number of files, and then link them if desired.  XC accepts and maps IRAF
-  virtual filenames, but since it is a standalone bootstrap utility the
-  environment is not passed, hence logical directories cannot be used.
+  tasks or files.  The XC utility may also be used to compile and/or
+  link non-IRAF files and tasks. It can be used to generate fortran from
+  xpp or ratfor code, to compile any number of files, and then link them
+  if desired.  XC accepts and maps IRAF virtual filenames, but since it
+  is a standalone bootstrap utility the environment is not passed, hence
+  logical directories cannot be used.
   </p>
   <p>
-  The following extensions are supported by the VMS version of xc:
   It is suggested that everyone stick with the iraf virtual file name extensions.
-  These are : .x, .r, .f, .c, .s, .o, .a, .e. The mapping of these to their
-  VMS counterparts is:
+  These are : .x, .r, .f, .c, .s, .o, .a, .e.
+  The meaning of these is:
   </p>
   <div class="highlight-default-notranslate"><pre>
-  .x -&gt; .x    SPP code
-  .r -&gt; .r    Ratfor code
-  .f -&gt; .for  Fortran code
-  .c -&gt; .c    C code
-  .s -&gt; .mar  Macro assembler code
-  .o -&gt; .obj  Object module
-  .a -&gt; .olb  Library file
-  .e -&gt; .exe  Executable Image
+  .x  SPP code
+  .r  Ratfor code
+  .f  Fortran code
+  .c  C code
+  .s  Macro assembler code
+  .o  Object module
+  .a  Library file
+  .e  Executable Image
   </pre></div>
   <p>
-  XC is available both in the CL, via the foreign task interface, and as
-  a standalone DCL callable task.  Usage is equivalent in either case.  Upper
-  case flags must be quoted to be recognized (the upper case flags will be
-  done away with at some point).
+  XC is available both in the CL and as a standalone task.
+  Usage is equivalent in either case.
   </p>
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <p>
-  Any upper case flags in the following examples must be doubly quoted in
-  the CL, singly quoted in VMS, to make it to XC without VMS mapping
-  everything to one case.  Omit the <span style="font-family: monospace;">"-x"</span> flag on a UNIX system.
-  </p>
   <p>
   1. Compile and link the source file <span style="font-family: monospace;">"mytask.x"</span> to produce the executable
   <span style="font-family: monospace;">"mytask.e"</span>.
@@ -286,15 +261,6 @@ xc: Compile and/or link a program
   or libraries.
   </p>
   </section>
-  <section id="s_bugs">
-  <h3>Bugs</h3>
-  <p>
-  The -S flag should generate assembler
-  output but does not presently do so in the VMS version.  All case sensitive
-  switches should be done away with in both the UNIX and VMS versions of the
-  utility.
-  </p>
-  </section>
   <section id="s_see_also">
   <h3>See also</h3>
   <p>
@@ -303,5 +269,5 @@ xc: Compile and/or link a program
   
   </section>
   
-  <!-- Contents: 'NAME' 'USAGE' 'FLAGS' 'DESCRIPTION' 'EXAMPLES' 'BUGS' 'SEE ALSO'  -->
+  <!-- Contents: 'NAME' 'USAGE' 'FLAGS' 'DESCRIPTION' 'EXAMPLES' 'SEE ALSO'  -->
   
