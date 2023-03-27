@@ -36,8 +36,7 @@ mkpkg: Make or update an object library or package
   <dl>
   <dt><b><b>-i</b></b></dt>
   <!-- Sec='ARGUMENTS' Level=0 Label='' Line='\fB-i\fR' -->
-  <dd>Ignore errors.  Execution continues even if an error occurs.  In most cases
-  it does anyhow, so this switch has little effect at present.
+  <dd>Ignore errors.  Execution continues even if an error occurs.
   </dd>
   </dl>
   <dl>
@@ -395,7 +394,8 @@ mkpkg: Make or update an object library or package
   <!-- Sec='DESCRIPTION' Level=1 Label='' Line='\fB$iferr\fR' -->
   <dd><br>
   Test for an error return from the last directive executed which touched
-  a file.
+  a file. This has only effect if mkpkg is invoked with the <b>-i</b> option
+  so that it doesn't exit on the first error.
   </dd>
   </dl>
   <dl>
