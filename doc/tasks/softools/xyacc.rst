@@ -34,12 +34,6 @@ xyacc: Build an SPP language parser
   </dd>
   </dl>
   <dl>
-  <dt><b>-p <i>sym_prefix</i></b></dt>
-  <!-- Sec='OPTIONS' Level=0 Label='' Line='-p \fIsym_prefix\fR' -->
-  <dd>Prepend sym_prefix to the external symbols
-  </dd>
-  </dl>
-  <dl>
   <dt><b>-P <i>parser</i></b></dt>
   <!-- Sec='OPTIONS' Level=0 Label='' Line='-P \fIparser\fR' -->
   <dd>Specify parser file (default <b>boot$xyacc/yaccpar.x</b>)
