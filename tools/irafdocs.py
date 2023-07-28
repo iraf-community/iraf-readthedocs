@@ -251,7 +251,10 @@ mainhelp = """
 
 def copy_static(target):
     for target_path in target.rglob("*.rst"):
-        if str(target_path.relative_to(target)) != "index.rst":
+        if str(target_path.relative_to(target)) not in (
+            "index.rst",
+            "extradocs.rst",
+        ):
             target_path.unlink()
 
     src = pathlib.Path(os.environ["iraf"]) / "doc"
