@@ -53,6 +53,8 @@ def get_help(task, device="text"):
     else:
         name = task.getName()
         pkg = task.getPkgname()
+    if name == "clpackage" and pkg == "clpackage":
+        name = ""
     try:
         lines = iraf.help(
             f"{pkg}.{name}", device=device, Stdout=True, Stderr="/dev/null"
@@ -127,10 +129,7 @@ def get_help(task, device="text"):
 def get_menu(task):
     pkgname = task.getName()
     menu = list()
-    if pkgname == "clpackage":
-        lines = mainhelp.splitlines()
-    else:
-        lines = get_help(task)
+    lines = get_help(task)
     for line in lines:
         if "-" not in line:
             continue
@@ -154,7 +153,7 @@ def process_task(path, name, pkgname=None, desc=None):
     try:
         task = iraf.getTask(full_name)
     except Exception:
-        return process_other(path, f"{pkgname}.{name}", desc)
+        return process_other(path, full_name, desc)
 
     if isinstance(task, IrafPkg) or full_name == "language":
         return process_package(path, task, desc)
@@ -170,7 +169,8 @@ def process_package(path, task=None, shortdesc=None):
         iraf.load(task.getName(), doprint=False, hush=True)
     except:
         pass
-
+    
+    print(f"\nPackage {task.getName()}:")
     if task.getName() == "clpackage":
         name = None
         outfile = path / "index.rst"
@@ -210,6 +210,7 @@ def process_other(path, task, shortdesc):
         name = task.getName()
         pkg = task.getPkgname()
         full_name = f"{pkg}.{name}"
+    print(f"    {full_name}")
     outfile = path / f"{name}.rst"
     if not outfile.parent.exists():
         outfile.parent.mkdir()
@@ -232,21 +233,6 @@ def process_other(path, task, shortdesc):
         path.relative_to("doc/tasks") / f"{name}.html"
     )
     return name
-
-
-mainhelp = """
-       language - The command language itself
-         images - General image processing package
-          lists - List processing package
-	   plot - Plot package
-         dataio - Data format conversion package (RFITS, etc.)
-         system - System utilities package
-      utilities - Miscellaneous utilities package
-       softools - Software tools package
-	   noao - The NOAO optical astronomy packages
-	  proto - Prototype or interim tasks
-       obsolete - Obsolete tasks
-"""
 
 
 def copy_static(target):
