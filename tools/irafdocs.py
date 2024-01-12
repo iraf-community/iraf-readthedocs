@@ -13,7 +13,8 @@ import json
 # from py_w3c.validators.html.validator import HTMLValidator
 
 from pyraf import iraf
-from pyraf.iraftask import IrafCLTask, IrafPkg
+from pyraf.iraftask import IrafCLTask, IrafPkg, IrafError
+from iraf import softools, mkhelpdb
 
 
 def tabwithspace(s):
@@ -46,7 +47,7 @@ def unindent(lines):
     return [(l[u:] if l.strip() != "" else "") for l in lines]
 
 
-def get_help(task, device="text"):
+def get_help(task, device="text", option="help"):
     if isinstance(task, str):
         name = task.split(".")[-1]
         pkg = task.split(".")[0]
@@ -57,12 +58,18 @@ def get_help(task, device="text"):
         name = ""
     try:
         lines = iraf.help(
-            f"{pkg}.{name}", device=device, Stdout=True, Stderr="/dev/null"
+            f"{pkg}.{name}",
+            device=device,
+            option=option,
+            Stdout=True,
+            Stderr="/dev/null",
         )
         if len(lines) < 2:
             raise Exception
     except Exception:
-        lines = iraf.help(name, device=device, Stdout=True, Stderr="/dev/null")
+        lines = iraf.help(
+            name, device=device, option=option, Stdout=True, Stderr="/dev/null"
+        )
 
     if device == "text":
         return lines
@@ -169,7 +176,7 @@ def process_package(path, task=None, shortdesc=None):
         iraf.load(task.getName(), doprint=False, hush=True)
     except:
         pass
-    
+
     print(f"\nPackage {task.getName()}:")
     if task.getName() == "clpackage":
         name = None
@@ -195,6 +202,13 @@ def process_package(path, task=None, shortdesc=None):
             ccname = process_task(path, cname, name, desc)
             if ccname is not None:
                 fp.write(f"   {ccname}\n")
+
+        lines = get_help(task, device="html", option="sysdoc")
+        if lines is not None and len(lines) > 10:
+            fp.write(".. raw:: html\n\n  ")
+            fp.write("\n  ".join(lines))
+            fp.write("\n")
+
     redirs[f"tasks/by-name/{name}"] = "../" + str(
         path.relative_to("doc/tasks") / f"index.html"
     )
@@ -251,9 +265,60 @@ def copy_static(target):
             shutil.copy(src_path, target_path)
 
 
+def external_packages():
+    extern = pathlib.Path(os.environ["iraf"]) / "extern"
+    for ext_path in sorted(extern.glob("*")):
+        if ext_path.is_dir():
+            try:
+                mkhelpdb(
+                    helpdir=f"{ext_path}/lib/root.hd",
+                    helpdb=f"{ext_path}/lib/helpdb.mip",
+                )
+            except IrafError:  # happens when the helpdb file cannot be written
+                pass
+            yield ext_path.name
+
+
+extpkg_desc = {
+    "adccdrom": "Astronomical Data Center (ADC) CD-ROM tools",
+    "ctio": "Tools for the Cerro Tololo Inter-American Observatory",
+    "deitab": "DEIMOS tables package",
+    "fitsutil": "Utilities for single and multiple FITS files",
+    "gemini": "Gemini data reduction package",
+    "gmisc": "Miscellaneous Gemini related Tasks",
+    "guiapps": "Prototype GUI application",
+    "mscdb": "MSCRED support files",
+    "mscred": "Mosaic CCD reduction package",
+    "nfextern": "General IR reductions/NEWFIRM package",
+    "rvsao": "IRAF Radial Velocity Package from SAO",
+    "sptable": "IRAF package for tabular spectra",
+    "st4gem": "Selected tools from STSDAS for use by the GEMINI package",
+    "ucsclris": "UCSC LRIS mask making",
+    "vo": "Virtual Observatory package from NOAO IRAF v2.16.1",
+    "xdimsum": "Deep Infrared Mosaicing Software",
+}
+
+
 if __name__ == "__main__":
     docpath = pathlib.Path("doc")
+
     copy_static(docpath)
+
     process_task(docpath / "tasks", "clpackage")
+    external_index = (
+        "External packages\n" "=================\n" ".. toctree:: :maxdepth: 1\n\n"
+    )
+
+    have_ext = False
+    for pkg in external_packages():
+        (docpath / "tasks" / "external").mkdir(parents=True, exist_ok=True)
+        have_ext = True
+        process_task(docpath / "tasks" / "external", pkg, desc=extpkg_desc[pkg])
+        external_index += f"  {pkg}/index\n"
+
+    if have_ext:
+        with (docpath / "tasks" / "external" / "index.rst").open("w") as fp:
+            fp.write(external_index)
+
     with (docpath / "redirects.json").open("w") as fp:
         json.dump(redirs, fp)
