@@ -3,14 +3,14 @@ Package and Task Reference
 
 .. toctree:: :maxdepth: 1
 
-   language/index
-   images/index
-   lists/index
-   plot/index
    dataio/index
+   images/index
+   language/index
+   lists/index
+   obsolete/index
+   noao/index
+   plot/index
+   proto/index
+   softools/index
    system/index
    utilities/index
-   softools/index
-   noao/index
-   proto/index
-   obsolete/index
