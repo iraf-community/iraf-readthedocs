@@ -1,1 +1,2 @@
-sphinx-reredirects
+sphinx-rtd-theme
+sphinx_reredirects
