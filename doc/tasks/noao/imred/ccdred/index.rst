@@ -10,6 +10,7 @@ ccdred: Generic CCD reductions
    ccdlist
    ccdmask
    ccdproc
+   ccdtest/index
    combine
    darkcombine
    flatcombine
