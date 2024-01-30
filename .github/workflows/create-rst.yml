@@ -29,14 +29,26 @@ jobs:
           sudo apt-get install -y --no-install-recommends iraf python3-pyraf python3-lxml python3-html5lib
           ln -sf /usr/lib/iraf/bin ${iraf}bin
 
+      - name: Checkout external packages
+        run: |
+          rm -rf ${iraf}extern/*
+          git clone --depth=1 https://github.com/iraf-community/iraf-fitsutil.git ${iraf}extern/fitsutil
+          git clone --depth=1 https://github.com/iraf-community/iraf-sptable.git ${iraf}extern/sptable
+          git clone --depth=1 https://github.com/iraf-community/iraf-mscred.git ${iraf}extern/mscred
+          git clone --depth=1 https://github.com/iraf-community/iraf-nfextern.git ${iraf}extern/nfextern
+          git clone --depth=1 https://github.com/iraf-community/iraf-ctio.git ${iraf}extern/ctio
+          git clone --depth=1 https://github.com/iraf-community/iraf-xdimsum.git ${iraf}extern/xdimsum
+          mkdir -p ${iraf}extern/rvsao
+          curl http://tdc-www.harvard.edu/iraf/rvsao/rvsao-2.8.5.tar.gz | tar xzf - -C ${iraf}extern/rvsao --strip-components=1
+
       - name: Create ReStructuredText documents
         run: |
-          python3 tools/irafdocs.py 
+          python3 tools/irafdocs.py
 
       - name: Push new docs
         run: |
           git config --global user.name '[bot] IRAF doc autoupdate'
-          git config --global user.email 'iraf-community@users.noreply.github.com' 
+          git config --global user.email 'iraf-community@users.noreply.github.com'
           git add --all doc
           git commit -m "Auto-updated IRAF documentation" || exit 0
           git push
