@@ -14,7 +14,7 @@ import json
 
 from pyraf import iraf
 from pyraf.iraftask import IrafCLTask, IrafPkg, IrafError
-from iraf import softools, mkhelpdb
+from iraf import softools, mkhelpdb, flprcache
 
 
 def tabwithspace(s):
@@ -276,6 +276,7 @@ def external_packages():
                 )
             except IrafError:  # happens when the helpdb file cannot be written
                 pass
+            flprcache("mkhelpdb")
             yield ext_path.name
 
 
