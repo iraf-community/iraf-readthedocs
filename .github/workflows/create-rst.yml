@@ -38,6 +38,7 @@ jobs:
           git clone --depth=1 https://github.com/iraf-community/iraf-nfextern.git ${iraf}extern/nfextern
           git clone --depth=1 https://github.com/iraf-community/iraf-ctio.git ${iraf}extern/ctio
           git clone --depth=1 https://github.com/iraf-community/iraf-xdimsum.git ${iraf}extern/xdimsum
+          git clone --depth=1 https://gitlab.com/nsf-noirlab/csdc/usngo/iraf/st4gem.git ${iraf}extern/st4gem
           mkdir -p ${iraf}extern/rvsao
           curl http://tdc-www.harvard.edu/iraf/rvsao/rvsao-2.8.5.tar.gz | tar xzf - -C ${iraf}extern/rvsao --strip-components=1
 
