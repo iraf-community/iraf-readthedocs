@@ -7,10 +7,12 @@ xdimsum: Deep Infrared Mosaicing Software
    xfirstpass
    xmaskpass
    xslm
+   xnslm
    maskfix
    xzap
    xnzap
    badpixupdate
+   xmskcombine
    xnregistar
    mkmask
    maskdereg
@@ -20,6 +22,7 @@ xdimsum: Deep Infrared Mosaicing Software
    xrshifts
    xlist
    iterstat
+   miterstat
    maskstat
    makemask
    sigmanorm
