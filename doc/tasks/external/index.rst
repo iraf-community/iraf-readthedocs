@@ -8,4 +8,5 @@ External packages
   nfextern/index
   rvsao/index
   sptable/index
+  st4gem/index
   xdimsum/index
