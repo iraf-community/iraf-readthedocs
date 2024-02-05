@@ -34,12 +34,6 @@ xc: Compile and/or link a program
   </dd>
   </dl>
   <dl>
-  <dt><b>-g</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-g' -->
-  <dd>Generates debugging information.
-  </dd>
-  </dl>
-  <dl>
   <dt><b>-h</b></dt>
   <!-- Sec='FLAGS' Level=0 Label='' Line='-h' -->
   <dd>Causes the executable to be linked as a host program, i.e., without the
@@ -115,7 +109,7 @@ xc: Compile and/or link a program
   <!-- Sec='FLAGS' Level=0 Label='' Line='-Nh [filename]' -->
   <dd>This tells xpp that the foreign definitions in the
   file specified should be used in preference to
-  standard include files.	
+  standard include files.
   </dd>
   </dl>
   <dl>
@@ -154,22 +148,9 @@ xc: Compile and/or link a program
   </dd>
   </dl>
   <dl>
-  <dt><b>-s</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-s' -->
-  <dd>Strips all symbols and debugging information.
-  </dd>
-  </dl>
-  <dl>
-  <dt><b>-v</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-v' -->
-  <dd>Verbose mode.  Causes messages to be printed during execution telling
-  what the <i>xc</i> program is doing.
-  </dd>
-  </dl>
-  <dl>
   <dt><b>-w</b></dt>
   <!-- Sec='FLAGS' Level=0 Label='' Line='-w' -->
-  <dd>Suppress warnings.				
+  <dd>Suppress warnings. Forwarded to the compiler and linker.
   </dd>
   </dl>
   <dl>
@@ -179,9 +160,9 @@ xc: Compile and/or link a program
   </dd>
   </dl>
   <dl>
-  <dt><b>-z</b></dt>
-  <!-- Sec='FLAGS' Level=0 Label='' Line='-z' -->
-  <dd>Create a non-shareable image (default).
+  <dt><b>-z, -e, -t, -T, -s</b></dt>
+  <!-- Sec='FLAGS' Level=0 Label='' Line='-z, -e, -t, -T, -s' -->
+  <dd>Ignored. Provided for backward compatibility.
   </dd>
   </dl>
   <dl>
