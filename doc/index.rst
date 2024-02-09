@@ -9,7 +9,7 @@ IRAF is maintained by the iraf-community_.
 .. toctree:: :maxdepth: 1
 
    tasks/index
-   tasks/external/index
+   tasks/extern
    spp
    clman
    std

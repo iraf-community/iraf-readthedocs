@@ -312,13 +312,12 @@ if __name__ == "__main__":
 
     have_ext = False
     for pkg in external_packages():
-        (docpath / "tasks" / "external").mkdir(parents=True, exist_ok=True)
         have_ext = True
-        process_task(docpath / "tasks" / "external", pkg, desc=extpkg_desc[pkg])
+        process_task(docpath / "tasks", pkg, desc=extpkg_desc[pkg])
         external_index += f"  {pkg}/index\n"
 
     if have_ext:
-        with (docpath / "tasks" / "external" / "index.rst").open("w") as fp:
+        with (docpath / "tasks" / "extern.rst").open("w") as fp:
             fp.write(external_index)
 
     with (docpath / "redirects.json").open("w") as fp:
