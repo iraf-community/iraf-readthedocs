@@ -4,24 +4,10 @@ imgtools: Tools for manipulating & examining images and bad pixel lists.
 .. toctree:: :maxdepth: 1
 
    addmasks
-   boxinterp
-   countfiles
-   gcombine
-   gcopy
-   gstatistics
    imcalc
-   imfill
    iminsert
    improject
-   listarea
-   mkgauss
-   moveheader
-   pickfile
-   pixedit
-   pixlocate
-   rbinary
    rd2xy
-   stack
    xy2rd
    xyztable
    xyztoim
@@ -53,19 +39,10 @@ imgtools: Tools for manipulating & examining images and bad pixel lists.
   | Task        | Description                                    |
   +--------------------------------------------------------------+
   | addmasks    | Combine several masks or bad pixel lists       |
-  | boxinterp   | Fill areas with smoothed neighboring values    |
-  | gcopy       | Copy one multi-group image to another          |
-  | gstatistics | Compute statistics for multi-group images      |
   | imcalc      | Perform general image arithmetic               |
-  | imfill      | Set image fill value according to a mask       |
   | iminsert    | Insert one image into another                  |
-  | listarea    | Print pixel values in an area of an image      |
   | improject   | Project image along one axis                   |
-  | moveheader  | Create an image from separate header/pix files |
-  | pixlocate   | Print positions inside or outside a range      |
-  | pixedit     | Screen editor for image pixels                 |
-  | rbinary     | Create an image from a binary file             |
-  | stack       | Stack images forming one w/one more dimension  |
+  | rd2xy       | Translate RA/Dec to pixel coordinates          |
   | xy2rd       | Translate pixel coordinates to RA &amp; Dec        |
   +--------------------------------------------------------------+
   </pre></div>
