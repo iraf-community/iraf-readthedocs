@@ -5,6 +5,7 @@ analysis: Data analysis packages.
 
    fitting/index
    fourier/index
+   isophote/index
 .. raw:: html
 
   <section id="s_description">
