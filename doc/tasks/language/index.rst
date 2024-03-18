@@ -5,11 +5,22 @@ language: The command language itself
 
    intro
    expressions
+   break
+   case
    commands
    cursors
    declarations
+   default
+   else
+   if
+   goto
    logging
+   next
    parameters
+   procedure
+   return
+   switch
+   while
    access
    back
    beep
@@ -31,6 +42,9 @@ language: The command language itself
    eparam
    error
    flprcache
+   fprint
+   fscan
+   fscanf
    gflush
    hidetask
    history
@@ -51,6 +65,8 @@ language: The command language itself
    radix
    redefine
    reset
+   scan
+   scanf
    service
    set
    show
