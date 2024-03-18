@@ -138,10 +138,15 @@ def get_menu(task):
     menu = list()
     lines = get_help(task)
     for line in lines:
-        if "-" not in line:
+        if "-" in line:
+            name, desc = line.split("-", 1)
+        elif "*" in line:
+            name, desc = line.split("*", 1)
+        else:
             continue
-        name, desc = line.split("-", 1)
         name = name.strip()
+        if " " in name:  # Probably not a menu line
+            continue
         if desc.endswith("[up]"):
             desc = desc[:-4]
         desc = desc.strip()
