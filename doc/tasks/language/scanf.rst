@@ -7,13 +7,6 @@ scanf: Formatted read from the standard input
 
 .. raw:: html
 
-  <div class="highlight-default-notranslate"><pre>
-  scan   -- read parameters from standard input
-  fscan  -- read parameters from file, or another parameter
-  scanf  -- formatted read from standard input
-  fscanf -- formatted read from file, or another parameter
-  nscan  -- get number of parameters scanned
-  </pre></div>
   <section id="s_usage">
   <h3>Usage</h3>
   <div class="highlight-default-notranslate"><pre>

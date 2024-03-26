@@ -7,10 +7,6 @@ whereis: locate all occurences of a task in the package list
 
 .. raw:: html
 
-  <div class="highlight-default-notranslate"><pre>
-  which -- locate a task in the package list
-  whereis -- locate all occurrences of a task in the package list
-  </pre></div>
   <section id="s_usage">
   <h3>Usage</h3>
   <div class="highlight-default-notranslate"><pre>

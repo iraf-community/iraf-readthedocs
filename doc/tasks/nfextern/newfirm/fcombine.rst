@@ -7,4 +7,8 @@ fcombine: Combine flat exposures
 
 .. raw:: html
 
+  <p>
+  See <b>combine</b>.
+  </p>
+  <!-- Contents:  -->
   

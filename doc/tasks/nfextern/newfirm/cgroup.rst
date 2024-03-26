@@ -7,4 +7,8 @@ cgroup: Group exposures
 
 .. raw:: html
 
+  <p>
+  See <b>combine</b>.
+  </p>
+  <!-- Contents:  -->
   
