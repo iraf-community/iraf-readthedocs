@@ -7,11 +7,6 @@ printf: Formatted print to the standard output
 
 .. raw:: html
 
-  <div class="highlight-default-notranslate"><pre>
-  print  -- print to the standard output
-  fprint -- print to a parameter
-  printf -- formatted print to the standard output
-  </pre></div>
   <section id="s_usage">
   <h3>Usage</h3>
   <div class="highlight-default-notranslate"><pre>

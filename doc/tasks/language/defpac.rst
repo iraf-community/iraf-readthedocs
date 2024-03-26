@@ -7,12 +7,6 @@ defpac: Test if a package is defined
 
 .. raw:: html
 
-  <div class="highlight-default-notranslate"><pre>
-  defpac  -- test if the named package is defined
-  deftask -- test if the named task is defined
-  defpar  -- test if the named parameter is defined
-  defvar  -- test if the named environment variable is defined
-  </pre></div>
   <section id="s_usage">
   <h3>Usage</h3>
   <div class="highlight-default-notranslate"><pre>
