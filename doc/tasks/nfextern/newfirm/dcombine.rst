@@ -7,4 +7,8 @@ dcombine: Combine dark exposures
 
 .. raw:: html
 
+  <p>
+  See <b>combine</b>.
+  </p>
+  <!-- Contents:  -->
   

@@ -100,20 +100,27 @@ def get_help(task, device="text", option="help"):
     if len(lines) < 10:
         return None
 
-    prolog = True
+    part = "header"
     olines = []
     h3 = re.compile(r"<h2>(.*?)</h2>")
     sec = re.compile(r'<section id="s_(.*?)">')
     in_code = False
     codelines = []
     for line in lines:
+        if line == "<p>" and part == "header":
+            olines.clear()
+            part = "body"
         if h3.findall(line):
             hdr = h3.sub(r"\1", line)
             line = "<h3>" + hdr.capitalize() + "</h3>"
         if sec.findall(line):
             section = sec.sub(r"\1", line)
-            if section != "name":
-                prolog = False
+            if section == "name":
+                olines.clear()
+                part = "name"
+            if section != "name" and part != "body":
+                olines.clear()
+                part = "body"
         if "<pre>" in line:
             line = line.replace(
                 "<pre>", '<div class="highlight-default-notranslate"><pre>'
@@ -126,7 +133,7 @@ def get_help(task, device="text", option="help"):
             olines += unindent(codelines)
             olines.append(line)
             in_code = False
-        elif not prolog and not in_code:
+        elif part == "body" and not in_code:
             olines.append(line)
         elif in_code:
             codelines.append(tabwithspace(line.replace("<br>", "")).rstrip())

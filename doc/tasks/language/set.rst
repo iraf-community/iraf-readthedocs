@@ -7,10 +7,6 @@ set: Set an environment variable
 
 .. raw:: html
 
-  <div class="highlight-default-notranslate"><pre>
-    set -- set the value of an IRAF environment variable
-  reset -- reset (overwrite) the value of an IRAF environment variable
-  </pre></div>
   <section id="s_usage">
   <h3>Usage</h3>
   <div class="highlight-default-notranslate"><pre>
