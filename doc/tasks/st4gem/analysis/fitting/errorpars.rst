@@ -208,7 +208,7 @@ errorpars: Pset with error-related parameters.
   <section id="s_references">
   <h3>References</h3>
   <p>
-  <span style="font-family: monospace;">"Error and bias in the STSDAS fitting package"</span>, I. Busko, ADASS VI,
+  <span style="font-family: monospace;">"Error and bias in the ST4GEM fitting package"</span>, I. Busko, ADASS VI,
   PASP Conf. Series 1997. 
   </p>
   </section>

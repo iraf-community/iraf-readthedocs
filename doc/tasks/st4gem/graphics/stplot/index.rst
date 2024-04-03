@@ -9,7 +9,7 @@ stplot: General plotting utilities.
 
   <p>
   The 'stplot' package includes general purpose plotting tasks
-  tailored toward STSDAS data formats; that is, tables and group format
+  tailored toward ST4GEM data formats; that is, tables and group format
   image files. These tasks include:
   </p>
   <dl id="l_sgraph">
@@ -17,7 +17,7 @@ stplot: General plotting utilities.
   <!-- Sec=None Level=0 Label='sgraph' Line='sgraph' -->
   <dd>The 'sgraph' task 
   includes all of the functions of the IRAF 'plot.graph' task, but adds
-  the ability to plot from STSDAS tables (images and text files were supported
+  the ability to plot from ST4GEM tables (images and text files were supported
   by 'graph'). In 'sgraph', you can plot a single column against a row, or
   a column against another column.
   </dd>
@@ -33,7 +33,7 @@ stplot: General plotting utilities.
   <dl id="l_skymap">
   <dt><b>skymap</b></dt>
   <!-- Sec=None Level=0 Label='skymap' Line='skymap' -->
-  <dd>The 'skymap' task interprets an STSDAS table as a catalog of
+  <dd>The 'skymap' task interprets an ST4GEM table as a catalog of
   coordinates and brightnesses to produce a star chart.  That is, it
   plots symbols whose size depends on brightness and whose position
   on the plot is a projection of the celestial coordinates.  There is an
@@ -44,7 +44,7 @@ stplot: General plotting utilities.
   <dl id="l_Group">
   <dt><b>Group Format</b></dt>
   <!-- Sec=None Level=0 Label='Group' Line='Group Format' -->
-  <dd>Three tasks support group format STSDAS images and plot more
+  <dd>Three tasks support group format ST4GEM images and plot more
   than one group member on a single graph.
   <dl>
   <dt><b>grlist</b></dt>
@@ -86,7 +86,7 @@ stplot: General plotting utilities.
   <dd>The 'igi' task is an interactive interpreter for producing
   arbitrary plots.  The syntax of the commands is based on Mongo, but 'igi'
   operates within IRAF and is device independent. (A complete reference
-  manual for 'igi' is available on request from the STSDAS group.)
+  manual for 'igi' is available on request from the ST4GEM group.)
   </dd>
   </dl>
   <dl id="l_newcont">

@@ -14,7 +14,7 @@ toolbox: General tools packages.
   There are seven packages within this package that contain general 
   utility tasks for examining, editing, reformatting, and operating 
   on images and tables.  All of these packages are implicitly loaded 
-  when the `stsdas' package is loaded.  Placing 
+  when the `st4gem' package is loaded.  Placing 
   these tasks in separate packages merely serves (in this case) to 
   emphasize the logical relationship between them, and to make the 
   individual package menus manageable.  A quick summary is given in 
@@ -54,12 +54,12 @@ toolbox: General tools packages.
   and pixel mask utilities. 
   </p>
   <p>
-  If you use non-STSDAS tasks in the IRAF environment for your 
+  If you use non-ST4GEM tasks in the IRAF environment for your 
   analysis, be aware that operations must be performed explicitly on 
   each group in multi-group GEIS files; the default is usually to 
   operate on only the first group.  (To learn the syntax for 
   operating on individual image groups, type <span style="font-family: monospace;">"help geis"</span>.)  On the 
-  other hand, many STSDAS tasks either perform the specified 
+  other hand, many ST4GEM tasks either perform the specified 
   operation on all groups, or make some explicit provision (usually 
   in the task parameters) to define the group(s) on which they 
   operate.  

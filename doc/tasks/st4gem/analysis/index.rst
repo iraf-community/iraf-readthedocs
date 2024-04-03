@@ -3,6 +3,7 @@ analysis: Data analysis packages.
 
 .. toctree:: :maxdepth: 1
 
+   dither/index
    fitting/index
    fourier/index
    isophote/index
@@ -11,13 +12,13 @@ analysis: Data analysis packages.
   <section id="s_description">
   <h3>Description</h3>
   <p>
-  The `stsdas.analysis' package contains eight packages of tasks for 
+  The `st4gem.analysis' package contains eight packages of tasks for 
   general image and spectral analysis, image restoration, statistics, 
   and access to the Guide Star Catalog.  These tasks are not 
   necessarily specific to HST data, but they do address some of the 
   most common anaylsis needs at Space Telescope Science Institute.  In 
   addition, these tasks are designed to make use of both IRAF images, 
-  and STSDAS binary tables for task I/O.  A quick summary of the 
+  and ST4GEM binary tables for task I/O.  A quick summary of the 
   available packages is given in Table 1 below; a more detailed summary 
   can be found in the following sections.  
   </p>
@@ -97,7 +98,7 @@ analysis: Data analysis packages.
   </p>
   <p>
   The `gasp' package contains utilities for searching the HST Guide 
-  Star Catalog index (on CD-ROM), building STSDAS tables with extracted 
+  Star Catalog index (on CD-ROM), building ST4GEM tables with extracted 
   portions, and producing charts of guide stars.  It is also possible 
   to use guide stars to derive a plate solution for an image, determine 
   the celestial coordinates of astronomical objects in that image, and 
@@ -158,7 +159,7 @@ analysis: Data analysis packages.
   OTHER ANALYSIS TASKS
   </p>
   <p>
-  Some analysis tasks have been written outside the STSDAS group, but 
+  Some analysis tasks have been written outside the ST4GEM group, but 
   are potentially very useful for the HST community.  We make these 
   tasks available in the `contrib' package, although the responsibility 
   for the accuracy and utility of these tasks rests with the authors.  

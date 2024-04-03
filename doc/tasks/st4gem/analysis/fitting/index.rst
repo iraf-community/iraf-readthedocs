@@ -10,7 +10,7 @@ fitting: Curve fitting tools.
 
   <p>
   This package contains tasks that perform function fitting operations on
-  images, STSDAS table columns, or lists.  Both linear and non-linear
+  images, ST4GEM table columns, or lists.  Both linear and non-linear
   functions are supported.
   </p>
   <p>
@@ -19,7 +19,7 @@ fitting: Curve fitting tools.
   before fitting the function. 
   </p>
   <p>
-  The fitting tasks write their results to STSDAS tables.  A common table
+  The fitting tasks write their results to ST4GEM tables.  A common table
   format is used by all tasks in the package, with the same column headers
   and formats. 
   </p>
@@ -59,7 +59,7 @@ fitting: Curve fitting tools.
   </p>
   <p>
   There is one task to do the inverse operation, that is, to read the table
-  with fitting results and build images, STSDAS tables or lists.  Another
+  with fitting results and build images, ST4GEM tables or lists.  Another
   task is available to list or print the fitting table contents in a
   human-readable format.
   </p>

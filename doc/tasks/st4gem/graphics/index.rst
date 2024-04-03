@@ -9,10 +9,10 @@ graphics: Graphics and image display packages.
   <section id="s_description">
   <h3>Description</h3>
   <p>
-  The `stsdas.graphics' package contains two subpackages of tasks for
+  The `st4gem.graphics' package contains two subpackages of tasks for
   viewing one- and two-dimensional data.  These tasks are not necessarily
   specific to HST data.  They tasks are designed to make use of IRAF
-  image formats (OIF, STF and QPOE), and STSDAS binary tables.  A summary
+  image formats (OIF, STF and QPOE), and ST4GEM binary tables.  A summary
   of the available packages is given in Table 1 below; a more detailed
   summary can be found in the following sections and the help for each
   package.
@@ -44,13 +44,13 @@ graphics: Graphics and image display packages.
   <h3>General data plotting</h3>
   <p>
   Tasks in the 'stplot' package support drawing graphs from IRAF data.
-  Several tasks also recognize STSDAS binary tables in addition to the
+  Several tasks also recognize ST4GEM binary tables in addition to the
   various IRAF image formats.
   </p>
   <p>
   The two generic tasks 'igi' and 'sgraph' draw graphs from any recognized
   IRAF data format. (A detailed <span style="font-family: monospace;">"IGI Reference Manual"</span> is available from
-  the STSDAS group by sending e-mail requests to: hotseat@stsci.edu).
+  the ST4GEM group by sending e-mail requests to: hotseat@stsci.edu).
   </p>
   <p>
   Other tasks provide more specific capabilities such as contour plots,

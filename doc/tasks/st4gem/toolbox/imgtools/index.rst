@@ -104,12 +104,12 @@ imgtools: Tools for manipulating & examining images and bad pixel lists.
   <section id="s_group_format_images">
   <h3>Group format images</h3>
   <p>
-  If you use non-STSDAS tasks in the IRAF environment for your 
+  If you use non-ST4GEM tasks in the IRAF environment for your 
   analysis, be aware that operations must be performed explicitly on 
   each group in multi-group GEIS files; the default is usually to 
   operate on only the first group.  (To learn the syntax for 
   operating on individual image groups, type <span style="font-family: monospace;">"help geis"</span>.)  On the 
-  other hand, many STSDAS tasks either perform the specified 
+  other hand, many ST4GEM tasks either perform the specified 
   operation on all groups, or make some explicit provision (usually 
   in the task parameters) to define the group(s) on which they 
   operate.  

@@ -275,7 +275,7 @@ crosscor: Cross-correlate two images.
   <section id="s_bugs">
   <h3>Bugs</h3>
   <p>
-  Beginning with STSDAS version 1.3,
+  Beginning with ST4GEM version 1.3,
   the output from this task is the transpose of the complex conjugate
   of what it used to produce.
   The current output agrees with the definition of cross correlation

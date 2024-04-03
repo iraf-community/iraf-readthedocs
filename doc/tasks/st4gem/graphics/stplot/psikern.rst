@@ -27,7 +27,7 @@ psikern: IRAF GIO Kernel to produce PostScript output.
   <p>
   The casual IRAF user will probably not know whether they are using
   psikern to render graphics produced by IRAF graphics.  If the local
-  STSDAS system administrator has set up graphics output devices to use
+  ST4GEM system administrator has set up graphics output devices to use
   psikern, usage is no different than any other IRAF graphics device.
   Since the set up of output devices in IRAF are site-specific, one will
   need to talk to their IRAF system administrator to find out what has
@@ -103,7 +103,7 @@ psikern: IRAF GIO Kernel to produce PostScript output.
   rendering are two different operations, using the LUT's in different
   ways.  Most graphics applications will only be concerned with the
   graphics LUT.
-  A lookup table may either be a text or binary STSDAS table.  If the table
+  A lookup table may either be a text or binary ST4GEM table.  If the table
   is a text table, the columns are defined as follows.  Lines that begin
   with a pound sign, <span style="font-family: monospace;">"#"</span>, or totally blank lines, are considered
   comments.  The first four columns must be present.  The last column,
@@ -470,38 +470,38 @@ psikern: IRAF GIO Kernel to produce PostScript output.
   </p>
   <p>
   9. Define and use the color table, <span style="font-family: monospace;">"invxgterm"</span>.  This
-  table is a text table distributed with STSDAS in the file
-  <span style="font-family: monospace;">"stsdas$lib/invxgterm"</span>.
+  table is a text table distributed with ST4GEM in the file
+  <span style="font-family: monospace;">"st4gem$lib/invxgterm"</span>.
   </p>
   <div class="highlight-default-notranslate"><pre>
   cl&gt; prow dev$pix 101 &gt;G prow.gki
   cl&gt; psikern prow.gki device=psi_land \
-  graphics_lut=stsdas$lib/invxterm
+  graphics_lut=st4gem$lib/invxterm
   </pre></div>
   <p>
   10.  Define a two-color graphics lookup table.  Many PostScript
   devices are laser printers.  Though they render color as different
   levels of gray, the output may not be pleasing.  One can force black
-  on white by using a two-color graphics lookup table.  STSDAS
-  distributes this table in the file <span style="font-family: monospace;">"stsdas$lib/mono"</span>
+  on white by using a two-color graphics lookup table.  ST4GEM
+  distributes this table in the file <span style="font-family: monospace;">"st4gem$lib/mono"</span>
   </p>
   <p>
   11.  A user has written an IGI script which requires a 256 color
-  graphics LUT, which mimics a rainbow from red to magenta.  STSDAS
-  distributes this table in the file <span style="font-family: monospace;">"stsdas$lib/rain256"</span>.  This
+  graphics LUT, which mimics a rainbow from red to magenta.  ST4GEM
+  distributes this table in the file <span style="font-family: monospace;">"st4gem$lib/rain256"</span>.  This
   table demonstrates the use of the color interpolation that psikern
   provides.
   </p>
   <div class="highlight-default-notranslate"><pre>
   cl&gt; igi &lt;manycolor.igi &gt;G igi.gki
   cl&gt; pskern igi.gki device=apsikerndevice \
-  graph_lut=stsdas$lib/rain256
+  graph_lut=st4gem$lib/rain256
   </pre></div>
   <p>
   12.  A user has written an IGI script which renders an image.  However,
   the user would like to use a 256 color image LUT, which mimics a
-  rainbow from red to magenta.  STSDAS distributes this table as
-  <span style="font-family: monospace;">"stsdas$lib/imgrain256"</span>.  The only difference between
+  rainbow from red to magenta.  ST4GEM distributes this table as
+  <span style="font-family: monospace;">"st4gem$lib/imgrain256"</span>.  The only difference between
   the table below and the one in example 11 is that an image LUT need
   not worry about background/foreground colors.  Hence the first two
   entries can be part of the whole color continuum.
@@ -521,7 +521,7 @@ psikern: IRAF GIO Kernel to produce PostScript output.
   <section id="s_references">
   <h3>References</h3>
   <p>
-  STSDAS Contact: Jonathan Eisenhamer, &lt;eisenhamer@stsci.edu&gt;
+  ST4GEM Contact: Jonathan Eisenhamer, &lt;eisenhamer@stsci.edu&gt;
   </p>
   <p>
   For a technical/programming description of psikern, including how to
@@ -555,8 +555,8 @@ psikern: IRAF GIO Kernel to produce PostScript output.
   Addison-Wesley Publishing Company, Inc.
   </pre></div>
   <p>
-  A number of color lookup tables are distributed with STSDAS in the
-  directory <span style="font-family: monospace;">"stsdas$lib"</span>.  The following tables are currently available:
+  A number of color lookup tables are distributed with ST4GEM in the
+  directory <span style="font-family: monospace;">"st4gem$lib"</span>.  The following tables are currently available:
   </p>
   <div class="highlight-default-notranslate"><pre>
   defxgterm       -- Similar color map as the default xgterm colormap

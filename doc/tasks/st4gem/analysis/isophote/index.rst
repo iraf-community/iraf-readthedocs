@@ -3,6 +3,17 @@ isophote: Elliptical isophote image analysis.
 
 .. toctree:: :maxdepth: 1
 
+   bmodel
+   ellipse
+   isoexam
+   isoimap
+   isomap
+   isopall
+   isoplot
+   controlpar
+   geompar
+   magpar
+   samplepar
 .. raw:: html
 
   <p>
@@ -10,7 +21,7 @@ isophote: Elliptical isophote image analysis.
   The main task is 'ellipse', which fits a set of elliptical isophotes over 
   an image. The algorithm is closely based on the description given by 
   Jedrzejewski (Mon.Not.R.Astr.Soc., 226, 747, 1987). The output of 
-  isophote fitting is a STSDAS table.
+  isophote fitting is a ST4GEM table.
   </p>
   <p>
   The table containing isophote information is used as input by the remaining

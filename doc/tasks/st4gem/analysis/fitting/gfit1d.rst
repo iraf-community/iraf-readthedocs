@@ -24,7 +24,7 @@ gfit1d: Interactive 1-d linear curve fit to images, tables or lists.
   </p>
   <p>
   Lists and image sections can be mixed in the input list using wildcard
-  characters.  Fit results will be written to an STSDAS table. (Table formats
+  characters.  Fit results will be written to an ST4GEM table. (Table formats
   are described below). If the table does not exist, it will be created.  
   Otherwise, the fit results will be appended as the last row in the table. 
   </p>
@@ -58,7 +58,7 @@ gfit1d: Interactive 1-d linear curve fit to images, tables or lists.
   need to be ordered, nor equally spaced, in X.
   </p>
   <p>
-  STSDAS table input is specified by a table name and column name, a table 
+  ST4GEM table input is specified by a table name and column name, a table 
   and two columns, or a pair of table and column names.  The table name 
   may be a file name template. The table name may have appended to it a
   row selector. If the specified column(s) store arrays in each cell
@@ -72,7 +72,7 @@ gfit1d: Interactive 1-d linear curve fit to images, tables or lists.
   input in a variety of ways. See help page for the 'errorpars' pset.
   </p>
   <p>
-  The STSDAS output table contains the information described below. Each
+  The ST4GEM output table contains the information described below. Each
   particular fit will result in a new row being appended to the table.
   </p>
   <div class="highlight-default-notranslate"><pre>

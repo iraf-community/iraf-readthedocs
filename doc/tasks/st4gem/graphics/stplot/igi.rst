@@ -18,7 +18,7 @@ igi: Interactive Graphics Interpreter.
   </p>
   <p>
   'Igi' has several significant extensions that are not included in
-  MONGO, such as the ability to read STSDAS tables, new commands such as
+  MONGO, such as the ability to read ST4GEM tables, new commands such as
   [XY]FLIP, [XYEPLS]EVALUATE, [XYEPLS]SECTION, VPAGE, and EDITCMD, and
   enhancements to MONGO commands such as CURSES.
   </p>
@@ -100,7 +100,7 @@ igi: Interactive Graphics Interpreter.
   <dd>Six vector buffers are predefined for the X and Y plot coordinates, errors,
   point style codes, upper or lower limit flags, and a scratch buffer.
   These buffers may be filled from any of several data formats:  an ASCII
-  text (list) file with values arranged in columns, an STSDAS binary
+  text (list) file with values arranged in columns, an ST4GEM binary
   table, a FITS table, or an IRAF image on any dimensionality.  The
   latter may be an OIF (<span style="font-family: monospace;">"old"</span> IRAF), STF (STScI or GEIS), or QPF (PROS)
   format image.
@@ -531,7 +531,7 @@ igi: Interactive Graphics Interpreter.
   <dl>
   <dt><b>Version 3.5.1, October 1992</b></dt>
   <!-- Sec='NEW FEATURES' Level=1 Label='Version' Line='Version 3.5.1, October 1992' -->
-  <dd>Removed dependence on STSDAS so the Tables version links and executes
+  <dd>Removed dependence on ST4GEM so the Tables version links and executes
   independently.
   Modified FILLPAT to print the current pattern style if there's no
   argument.
@@ -730,7 +730,7 @@ igi: Interactive Graphics Interpreter.
   <!-- Sec='PARAMETERS' Level=1 Label='' Line='(append = no) [boolean]' -->
   <dd>Append to existing graphics?  This may be used to run igi several times
   but plot to the same frame (page) or combine igi graphics with plots
-  from other IRAF/STSDAS tasks.  Use the ERASE task to create a new
+  from other IRAF/ST4GEM tasks.  Use the ERASE task to create a new
   frame, even with append=yes.
   If appending graphics to a metacode file you must also use "</span>&gt;&gt;G file<span style="font-family: monospace;">"
   rather than "</span>device=file<span style="font-family: monospace;">".  Using "</span>append=yes<span style="font-family: monospace;">" also permits creating a
@@ -1035,7 +1035,7 @@ igi: Interactive Graphics Interpreter.
   command prefix indicates which data buffer to fill:  x coordinates, y
   coordinates, errors, point marker styles, limits, or scratch.  If the
   input data is a text (ASCII list) file, 'column' must be an integer
-  specifying the column number.  If it is an STSDAS or FITS table,
+  specifying the column number.  If it is an ST4GEM or FITS table,
   'column' must be a string specifying the column name.  Note that table
   column names are case-sensitive and may not be abbreviated.
   The second argument, row number, provides the ability to plot from
@@ -1089,7 +1089,7 @@ igi: Interactive Graphics Interpreter.
   Arguments:  DATA [filename]
   Specify the input data file.  This file may be either an ASCII list
   (text) file whose contents are numerical values arranged in columns, an
-  STSDAS table, or a FITS table.  If no file name is specified, the
+  ST4GEM table, or a FITS table.  If no file name is specified, the
   current data file and type is listed on the standard output.
   See [XYEPLS]COLUMN to read an arbitrary column into one of the
   predefined igi arrays.  See [XYEPLS]SECTION to read an IRAF image into
@@ -1188,7 +1188,7 @@ igi: Interactive Graphics Interpreter.
   Read error values from the column in the current data file specified by
   the column parameter.  If the input data is a text (ASCII list) file, 
   column must be an integer specifying the column number.  If it is an 
-  STSDAS or FITS table, column must be a string specifying the column name.  Note 
+  ST4GEM or FITS table, column must be a string specifying the column name.  Note 
   that table column names are case-sensitive and may not be abbreviated.
   See DATA to specify the input file (table) name.  See ETYPE to specify
   the style of error bars and ERRORBAR for drawing them.
@@ -1624,7 +1624,7 @@ igi: Interactive Graphics Interpreter.
   Arguments:  LCOLUMN column
   Read a column of limits data from the file specified by the data
   command.  If the input data is a text (ASCII list) file, column must be
-  an integer specifying the column number.  If it is an STSDAS  or FITS table,
+  an integer specifying the column number.  If it is an ST4GEM  or FITS table,
   column must be a string specifying the column name.  Note that table
   column names are case-sensitive and may not be abbreviated. 
   See DATA to specify the input file (table) name.  See ULLIM for use of 
@@ -1773,7 +1773,7 @@ igi: Interactive Graphics Interpreter.
   Arguments:  PCOLUMN column
   Read point specifications from the input data file (table).  If the file
   is a text file, the column number must be an integer.  If the file is an
-  STSDAS or FITS table, the column name must be a string.  Note that table column
+  ST4GEM or FITS table, the column name must be a string.  Note that table column
   names are case-sensitive and may not be abbreviated.  
   See DATA to specify the input file (table) name.
   The floating point data values are assumed to represent a coded marker
@@ -2008,7 +2008,7 @@ igi: Interactive Graphics Interpreter.
   Arguments:  SCOLUMN column
   Read a column of scratch data from the file specified by the data
   command.  If the input data is a text (ASCII list) file, column must be
-  an integer specifying the column number.  If it is an STSDAS or FITS table,
+  an integer specifying the column number.  If it is an ST4GEM or FITS table,
   column must be a string specifying the column name.  Note that table
   column names are case-sensitive and may not be abbreviated. 
   See DATA to specify the input file (table) name.  See EVALUATE for use
@@ -2248,7 +2248,7 @@ igi: Interactive Graphics Interpreter.
   <h3>Wcslab</h3>
   Arguments:  WCSLAB [edit]
   Label the currently specified viewport with WCS, including equatorial
-  (celestial) coordinates as with the STSDAS stplot.wcslab task.
+  (celestial) coordinates as with the ST4GEM stplot.wcslab task.
   The optional command argument is a string that begins with "</span>e<span style="font-family: monospace;">" or "</span>E<span style="font-family: monospace;">".
   This allows editing wlpars parameter set for specifying attributes via
   eparam.
@@ -2290,7 +2290,7 @@ igi: Interactive Graphics Interpreter.
   Read X coordinate data from the specified column in the current input
   data file.  If the file is a text file, the column number must be an
   integer.  If no X data are specified, the Y data are plotted against row
-  number.  If the file is an STSDAS or FITS table, the column name must be a
+  number.  If the file is an ST4GEM or FITS table, the column name must be a
   string.  Note that table column names are case-sensitive and may not be 
   abbreviated.
   See DATA to specify the input file (table) name.
@@ -2332,7 +2332,7 @@ igi: Interactive Graphics Interpreter.
   escape characters may be used to specify different fonts, superscripts
   and subscripts (See LABEL).  If the optional argument is missing, igi
   uses an internal string.  This is filled by the DATA and XCOLUMN
-  commands.  If the DATA command specifies a binary STSDAS table, then
+  commands.  If the DATA command specifies a binary ST4GEM table, then
   the XCOLUMN command appends the column name to the string.
   Note that the label may not appear if the edge of the viewport (the
   axes) falls too close to the edge of the (virtual) page.  Use LOCATION
@@ -2411,7 +2411,7 @@ igi: Interactive Graphics Interpreter.
   Arguments:  YCOLUMN column
   Read Y coordinate data from the specified column in the current input
   data file.  If the file is a text file, the column number must be an
-  integer.  If the file is an STSDAS or FITS table, the column name must be a
+  integer.  If the file is an ST4GEM or FITS table, the column name must be a
   string. Note that table column names are case-sensitive and may not be
   abbreviated.  If no X data are specified, the Y data are plotted against
   row number. 
@@ -2454,7 +2454,7 @@ igi: Interactive Graphics Interpreter.
   characters may be used to specify different fonts, superscripts and
   subscripts (See LABEL).  If the optional argument is missing, igi uses
   an internal string.  This is filled by the DATA and YCOLUMN commands.
-  If the DATA command specifies a binary STSDAS table, then the YCOLUMN
+  If the DATA command specifies a binary ST4GEM table, then the YCOLUMN
   command appends the column name to the string.
   This command is saved in the command buffer.
   </section>
@@ -2603,7 +2603,7 @@ igi: Interactive Graphics Interpreter.
   <h3>Examples</h3>
   The examples fall in two groups.  The first simply shows different ways
   to run the task, interactively or by using input command files and some
-  device options.  This is analagous to the usual IRAF/STSDAS tasks.  The
+  device options.  This is analagous to the usual IRAF/ST4GEM tasks.  The
   larger section shows some specific examples of using igi commands to
   build plots and manage the interaction.  These are examples of the
   unique igi "</span>mini-language.<span style="font-family: monospace;">"

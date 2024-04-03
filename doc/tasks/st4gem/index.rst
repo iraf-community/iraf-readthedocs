@@ -6,4 +6,6 @@ st4gem: Selected tools from STSDAS for use by the GEMINI package
    analysis/index
    contrib/index
    graphics/index
+   hst_calib/index
+   nttools/index
    toolbox/index
