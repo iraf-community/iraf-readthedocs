@@ -3,7 +3,7 @@ import sys
 import json
 
 project = 'IRAF'
-release = '2.17.1'
+release = '2.18'
 version = release
 copyright = '1986 Association of Universities for Research in Astronomy Inc.'
 
