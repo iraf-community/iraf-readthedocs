@@ -19,6 +19,7 @@ html_theme_options = {
     'collapse_navigation': True,
 }
 html_static_path = ['_static']
+html_show_sourcelink = False
 
 html_css_files = [
     'brand.css',
