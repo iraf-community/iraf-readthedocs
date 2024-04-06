@@ -244,6 +244,8 @@ def process_other(path, task, shortdesc):
     if lines is None:
         return None
 
+    slines = get_help(task, device="html", option="sysdoc")
+
     with outfile.open("w") as fp:
         title = name
         if shortdesc:
@@ -254,6 +256,11 @@ def process_other(path, task, shortdesc):
         fp.write(".. raw:: html\n\n  ")
         fp.write("\n  ".join(lines))
         fp.write("\n")
+        if slines is not None:
+            fp.write("System Documentation\n--------------------\n\n")
+            fp.write(".. raw:: html\n\n  ")
+            fp.write("\n  ".join(slines))
+            fp.write("\n")
 
     redirs[f"tasks/by-name/{name}"] = "../" + str(
         path.relative_to("doc/tasks") / f"{name}.html"
