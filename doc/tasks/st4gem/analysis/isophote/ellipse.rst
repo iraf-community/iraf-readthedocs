@@ -432,3 +432,350 @@ ellipse: Fit elliptical isophotes.
   
   <!-- Contents: 'NAME' 'USAGE' 'DESCRIPTION' 'PARAMETERS' 'EXAMPLES' 'BUGS' 'REFERENCES' 'SEE ALSO'  -->
   
+System Documentation
+--------------------
+
+.. raw:: html
+
+  <section id="s_introduction">
+  <h3>Introduction</h3>
+  <p>
+  This document presents in deeper detail some issues not thoroughly
+  discussed in the `ellipse' task and related psets' help pages:
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+   1 - the basic isophote fitting formulae.
+   2 - radial gradient computation.
+   3 - errors.
+   4 - image sampling.
+   5 - integrated magnitude precision.
+   6 - convergency diagnostic.
+   7 - object locator.
+   8 - image/graphics display.
+   9 - ellipticity X eccentricity.
+  10 - ASCII output.
+  </pre></div>
+  </section>
+  <section id="s_1__basic_formulae">
+  <h3>1. basic formulae</h3>
+  <p>
+  The basic isophote fitting algorithm, as described in reference [1], 
+  computes corrections for the current ellipse's geometrical parameters
+  by essentially <span style="font-family: monospace;">"projecting"</span> the fitted harmonic amplitudes onto the
+  image plane:
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+                                                - B1
+  major axis center position correction = -----------------     (pixel)
+                                                  I'
+  
+                                            - A1 (1 - ellip)
+  minor axis center position correction = ------------------    (pixel)
+                                                  I'
+  
+                            - 2 B2 (1 - ellip)
+  ellipticity correction = -------------------
+                                  I' a
+  
+                                   2 A2 (1 - ellip)
+  position angle correction = ------------------------------    (radians)
+                               I' a [(1 - ellip)**2 - 1]
+  
+  </pre></div>
+  <p>
+  where I' is the local radial intensity gradient, <span style="font-family: monospace;">`a'</span> is the current
+  semi-major axis, and A1, B1, A2, B2 are the current least-squares-fitted 
+  harmonic amplitudes. In each of the above formulae, I' is the fundamental 
+  <span style="font-family: monospace;">"geometrical"</span> factor used to <span style="font-family: monospace;">"project"</span> amplitudes, which are 
+  intensity-like quantities, onto the ellipse  geometrical plane.
+  The <span style="font-family: monospace;">`a'</span> term in the denominator is used to transform from pixel
+  units to a non-dimensional scale (ellipticity and angle), and the 
+  remaining factors are geometrical corrections.
+  </p>
+  </section>
+  <section id="s_2__radial_gradient_computation">
+  <h3>2. radial gradient computation</h3>
+  <p>
+  The radial intensity gradient is the most critical quantity computed
+  by the fitting algorithm. As can be seen from the above formulae, small
+  I' values lead to large values for the correction terms. Thus, I' errors
+  may lead to large fluctuations in these terms, when I' itself is small. 
+  This happens usually at the fainter, outer isophotes of galaxy images. 
+  It was found by numerical experiments [2] that the precision to which a 
+  given elliptical isophote can be fitted is related to the relative error 
+  in the local radial gradient.
+  </p>
+  <p>
+  Because of the gradient's critical role, the task has a number of 
+  features to allow its estimation even under difficult conditions. 
+  The default gradient computation, the one used at first by the task when 
+  it starts to fit a new isophote, is based on the extraction of two intensity 
+  samples: #1 at the current ellipse position, and #2 at a similar ellipse 
+  with a 10% larger semi-major axis. #1 sample, which will be used also for 
+  harmonic fitting, is extracted using the current integration mode (bi-linear, 
+  mean, etc.). To speed up processing, #2 sample is extracted using faster 
+  nearest-neighbor sampling. This faster sampling is disabled when either 
+  the current semi-major axis length is smaller than 20 pixels, or the 
+  gradient error at the last isophote fitted so far is larger than 20%.
+  </p>
+  <p>
+  If the gradient so estimated is not meaningful, the algorithm extracts
+  another #2 sample, this time using in full the current integration method 
+  and a 20% larger radius. In this context, meaningful gradient means 
+  <span style="font-family: monospace;">"shallower"</span>, but still close to within a factor 3 from the previous 
+  isophote's gradient estimate. 
+  </p>
+  <p>
+  If still no meaningful gradient can be measured, the task uses the value
+  measured at the last fitted isophote, but decreased (in absolute value) 
+  by a factor 0.8. This factor is roughly what is expected from semi-major axis
+  geometrical sampling steps of 10 - 20 % and a deVaucouleurs law or an 
+  exponential disk in its inner region (r &lt;~ 5 req). When using the last 
+  isophote's gradient as estimator for the current one, the current gradient 
+  error cannot be computed and is set to INDEF.
+  </p>
+  <p>
+  As a last resort, if no previous gradient estimate is available, the
+  task just guesses the current value by setting it to be (minus) 10 %
+  of the mean intensity at sample #1. This case usually happens only at 
+  the first isophote fitted by the task.
+  </p>
+  <p>
+  The use of approximate gradient estimators may seem in contradiction with
+  the fact that isophote fitting errors depend on gradient error, as well as
+  with the fact that the algorithm itself is so sensitive to the gradient
+  value. 
+  The rationale behind the use of approximate estimators, however, is based
+  on the fact that the gradient value is used only to compute increments,
+  not the ellipse parameters themselves. Approximate estimators are useful
+  along the first steps in the iteration sequence, in particular when local 
+  image contamination (stars, defects, etc.) might make it difficult to find 
+  the correct path towards the solution. At convergency, however, if the
+  gradient is still not well determined, the subsequent error computations,
+  and the task's behavior from that point on, will take the fact into account 
+  properly. For instance, the 3rd and 4th harmonic amplitude errors depend
+  on the gradient relative error, and if this is not computable at the
+  current isophote, the task uses a reasonable estimate (80% of the value at
+  the last successful isophote) in order to
+  generate sensible estimates for those harmonic errors.
+  </p>
+  </section>
+  <section id="s_3__errors">
+  <h3>3. errors</h3>
+  <p>
+  Most parameters computed directly at each isophote have their errors 
+  defined by standard error propagation formulae. Errors in the ellipse
+  geometry parameters, on the other hand, cannot be estimated in the same
+  way, since these parameters are not computed directly but result from a 
+  number of updates from a starting guess value. An error analysis based on 
+  numerical experiments [2] showed that the best error estimators for these
+  geometrical parameters can be found by simply <span style="font-family: monospace;">"projecting"</span> the harmonic
+  amplitude errors that come from the least-squares covariance matrix by
+  the same formulae above (1) used to <span style="font-family: monospace;">"project"</span> the associated parameter 
+  updates. In other words, errors for ellipse center, ellipticity and
+  position angle are computed by the same formulae as in (1), but replacing
+  the least-squares amplitudes by their errors. This is empirical and 
+  difficult to justify in terms of any theoretical error analysis, but 
+  showed in practice to produce reliable error estimators.
+  </p>
+  </section>
+  <section id="s_4__image_sampling">
+  <h3>4. image sampling</h3>
+  <p>
+  When sampling is done using elliptical sectors (mean or median modes),
+  Jedrzejewski's method uses an elaborate, high-precision scheme to take 
+  into account partial pixels that lie along elliptical sector boundaries.
+  In the `ellipse' task this scheme was not implemented. Instead, pixels 
+  at sector boundaries are either fully included or discarded, depending on
+  the precise position of their centers in relation to the elliptical
+  geometric locus corresponding to the current isophote. This design decision 
+  is based on two arguments: (i) it would be difficult to include
+  partial pixels in median computation, and (ii) speed. It remains to be
+  seen the loss in isophote fitting precision due to this simpler 
+  implementation, as compared with the original method.
+  </p>
+  <p>
+  Even when the chosen integration mode is not bi-linear, the sampling
+  algorithm resorts to it in case the number of sampled pixels inside any
+  given sector is less than 5. If was found that bi-linear mode gives
+  smoother samples in those cases.
+  </p>
+  <p>
+  Tests performed with artificial images showed that cosmic rays and 
+  defective pixels can be very effectively removed from the fit by a 
+  combination of median sampling and sigma-clipping. Sigma-clip alone 
+  is effective only for small contamination levels.
+  </p>
+  </section>
+  <section id="s_5__integrated_magnitude_precision">
+  <h3>5. integrated magnitude precision</h3>
+  <p>
+  The integrated fluxes, magnitudes and areas computed by `ellipse' where 
+  checked against results produced by the `noao.digiphot.apphot' tasks 
+  `phot' and `polyphot', using artificial galaxy images. Quantities computed 
+  by `ellipse' match the <span style="font-family: monospace;">"reference"</span> ones within &lt; 0.1 % in all tested cases.
+  </p>
+  </section>
+  <section id="s_6__convergency_diagnostic">
+  <h3>6. convergency diagnostic</h3>
+  <p>
+  The basic convergency criterion for stopping iterations at a given
+  isophote compares the largest harmonic amplitude among A1, B1, A2, B2, 
+  with a fixed, user-definable fraction of the fit's root-mean-square 
+  residual. To check the convergency behavior after running `ellipse',
+  the plot of the largest amplitude after convergency (stored in output 
+  table's A_BIG column) as a function of the isophote rms value (stored in 
+  column RMS) can be used for a quick look at the convergency amplitudes.
+  Because RMS is not the residual after the harmonic fit, but just the raw 
+  root-mean-square scatter of intensity values along the elliptical path,
+  the average slope of that plot should be significantly smaller than the 
+  convergency parameter `conver' value, and outliers may give information 
+  on how far from convergency the fit was at each isophote.
+  </p>
+  </section>
+  <section id="s_7__object_locator">
+  <h3>7. object locator</h3>
+  <p>
+  When designing the new version of `ellipse', high priority was given to
+  make it as independent as possible from user input. However, the algorithm
+  simply does not run if not supplied with reasonably accurate object
+  coordinates. In other words, it can not find the desired object to be
+  measured in the input frame. Because of that, the task implementation
+  pays special attention to the values supplied by the user as object 
+  coordinates. Before starting the fit itself, it runs an
+  <span style="font-family: monospace;">"object locator"</span> routine around the specified or assumed object coordinates,
+  to check if minimal conditions for starting a reasonable fit are met.
+  This routine, in the current implementation, performs a scan over a
+  10 X 10 pixel window centered on the input object coordinates. At each
+  scan position, it extracts two concentric circular samples with radii
+  4 and 8 pixels, using bi-linear sub-pixelized interpolation. It computes
+  a signal-to-noise-like criterion using the intensity averages and standard 
+  deviations at each annulus
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+              aver1 - aver2
+  CRIT = -------------------------
+         sqrt (std1 ^2 + std2 ^ 2)
+  </pre></div>
+  <p>
+  and locates the pixel inside the scanned window where this criterion is
+  a maximum. If the criterion so computed exceeds a given threshold, it
+  assumes that a suitable object was detected at that position. 
+  </p>
+  <p>
+  The default threshold value is set to 1. This value, and the annuli and
+  window sizes currently used, were found by trial and error using a
+  number of both artificial and real galaxy images. It was found that very
+  flat galaxies (ellipticity ~ 0.7) cannot be detected by such a simple
+  algorithm. In such cases the user must resort to task parameter
+  'olthresh' in the 'controlpar' pset. By lowering its value the object
+  locator becomes less strict, in the sense that it will accept lower
+  signal-to-noise data. 
+  </p>
+  <p>
+  The object locator algorithm, including its numerical parameters, must
+  be regarded as still in an experimental phase. Input and suggestions
+  from users are welcome.
+  </p>
+  </section>
+  <section id="s_9__image_graphics_display">
+  <h3>9. image/graphics display</h3>
+  <p>
+  The display feature is implemented in a similar way as in task
+  `imexamine': the `ellipse' task issues a command to the CL, and this
+  command is simply a call to the either `display' or `contour' tasks,
+  depending on which visualization device is being used.  
+  </p>
+  <p>
+  The `display' or `contour' command line is enriched with arguments 
+  which ensure proper alignment of image and graphics, as well as allow 
+  the control of zooming and gray-scale functions by the user.
+  </p>
+  <p>
+  The actual commands issued by `ellipse' look like:
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  display "section_name" 1 "optional_user_parameters" erase+ border+ \
+           fill+ xcenter=0.5 ycenter=0.5 xsize=1. ysize=1. xmag=1. ymag=1. \
+           mode=h &gt;&amp; dev$null
+  
+  or
+  
+  contour "section_name" "optional_user_parameters" append- mode=h &gt;&amp; dev$null
+  </pre></div>
+  <p>
+  where <span style="font-family: monospace;">"section_name"</span> is the actual file name of the image being measured,
+  eventually appended with a section specification that allows the <span style="font-family: monospace;">"fill+"</span>
+  display mode (or the graphics routine) to simulate a zoom effect. The 
+  <span style="font-family: monospace;">"optional_user_parameters"</span> string is the user-defined string built by the 
+  `dispars:' cursor command.
+  </p>
+  <p>
+  Notice that there is room for some misbehavior if the user writes 
+  something unacceptable in the :dispars string. `ellipse' does not check 
+  this string, simply passes it to the underlying system.
+  </p>
+  <p>
+  Notice also that the spelling of parameter names, as well as their meaning,
+  are hard-coded inside ellipse's source code. If by any reason the 
+  `display' or `contour' tasks are modified in future system versions, the
+  `ellipse' source code will have to be modified accordingly.
+  </p>
+  </section>
+  <section id="s_9__ellipticity_x_eccentricity">
+  <h3>9. ellipticity x eccentricity</h3>
+  <p>
+  Why task `ellipse' works with <span style="font-family: monospace;">"ellipticity"</span> instead of the canonical
+  ellipse eccentricity ? The main reason is that ellipticity, defined
+  as 
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+              minor axis
+  e  =  1  -  ----------
+              major axis
+  </pre></div>
+  <p>
+  relates better with the visual <span style="font-family: monospace;">"flattening"</span> of an ellipse. It is easy,
+  by looking to a flattened circle, to guess its ellipticity as, say,
+  0.1. The same ellipse has, however, an eccentricity of 0.44, which is
+  not obvious from its visual aspect. The quantities relate as
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  
+  eccentricity  =  sqrt [ 1 -  (1 - ellipticity)^2 ]
+  
+  </pre></div>
+  </section>
+  <section id="s_10__why_the_new_version_does_not_support_ascii_output">
+  <h3>10. why the new version does not support ascii output</h3>
+  <p>
+  The older version of `ellipse' supported output in either binary table
+  format or ASCII format. The new version enforces all its numeric output
+  to be in binary table format only. The basic reason behind this change is
+  that in binary table format the results' full numeric precision is
+  preserved. If the need ever arises to generate ASCII output, use task
+  `tables.ttools.tdump' to extract the information from ellipse's output
+  binary tables and dump it to ASCII files.
+  </p>
+  </section>
+  <section id="s_11__references">
+  <h3>11. references</h3>
+  <dl>
+  <dt><b>[1]</b></dt>
+  <!-- Sec='11. REFERENCES' Level=0 Label='' Line='[1]' -->
+  <dd>JEDRZEJEWSKI, R., 1987, Mon. Not. R. Astr. Soc., 226, 747.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>[2]</b></dt>
+  <!-- Sec='11. REFERENCES' Level=0 Label='' Line='[2]' -->
+  <dd>BUSKO, I., 1996, Proceedings of the Fifth Astronomical Data Analysis
+  Software and Systems Conference, Tucson, PASP Conference Series v.101,
+  ed. G.H. Jacoby and J. Barnes, p.139-142.
+  </dd>
+  </dl>
+  
+  </section>
+  
+  <!-- Contents: 'INTRODUCTION' '1. BASIC FORMULAE' '2. RADIAL GRADIENT COMPUTATION' '3. ERRORS' '4. IMAGE SAMPLING' '5. INTEGRATED MAGNITUDE PRECISION' '6. CONVERGENCY DIAGNOSTIC' '7. OBJECT LOCATOR' '9. IMAGE/GRAPHICS DISPLAY' '9. ELLIPTICITY X ECCENTRICITY' '10. WHY THE NEW VERSION DOES NOT SUPPORT ASCII OUTPUT' '11. REFERENCES'  -->
+  

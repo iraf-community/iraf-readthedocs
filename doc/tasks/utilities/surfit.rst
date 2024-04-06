@@ -328,3 +328,181 @@ surfit: Fit a surface, z=f(x,y), to a set of x, y, z points
   
   <!-- Contents: 'NAME' 'USAGE' 'PARAMETERS' 'DESCRIPTION' 'EXAMPLES' 'SEE ALSO'  -->
   
+System Documentation
+--------------------
+
+.. raw:: html
+
+  <section id="s_synopsis">
+  <h3>Synopsis</h3>
+  <p>
+  The surface is defined in the following way. The x and y values are
+  assumed to be integers and lie in the range 0 &lt;= x &lt;= ncols + 1 and
+  0 &lt;= y &lt;= nlines + 1. The package prefix is for image surface fit.
+  Package routines with a prefix followed by l operate on individual
+  image lines only.
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+      isinit  (sf, surf_type, xorder, yorder, xterms, ncols, nlines)
+      iszero  (sf)
+     islzero  (sf, lineno)
+    islaccum  (sf, cols, lineno, z, w, ncols, wtflag)
+    islsolve  (sf, lineno, ier)
+      islfit  (sf, cols, lineno, z, w, ncols, wtflag, ier)
+    islrefit  (sf, cols, lineno, z, w, ier)
+     issolve  (sf, lines, nlines, ier)
+   isresolve  (sf, lines, ier)
+  z = iseval  (sf, x, y)
+    isvector  (sf, x, y, zfit, npts)
+      issave  (sf, surface)
+   isrestore  (sf, surface)
+      isfree  (sf)
+  </pre></div>
+  </section>
+  <section id="s_description">
+  <h3>Description</h3>
+  <p>
+  The SURFIT package provides a set of routines for fitting surfaces to functions
+  linear in their coefficients using the tensor product method and least squares
+  techniques. The basic numerical
+  technique employed is the solution of the normal equations by the Cholesky
+  method.
+  </p>
+  </section>
+  <section id="s_notes">
+  <h3>Notes</h3>
+  <p>
+  The following series of steps illustrates the use of the package.
+  </p>
+  <dl>
+  <dt><b></b></dt>
+  <!-- Sec='NOTES' Level=0 Label='' Line='' -->
+  <dd><dl>
+  <dt><b>(1)</b></dt>
+  <!-- Sec='NOTES' Level=1 Label='' Line='(1)' -->
+  <dd>Include an include &lt;math/surfit.h&gt; statement in the calling program to make the
+  SURFIT package definitions available to the user program.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>(2)</b></dt>
+  <!-- Sec='NOTES' Level=1 Label='' Line='(2)' -->
+  <dd>Call ISINIT to initialize the surface fitting parameters.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>(3)</b></dt>
+  <!-- Sec='NOTES' Level=1 Label='' Line='(3)' -->
+  <dd>Call ISLACCUM to select a weighting function and accumulate data points
+  for each line into the appropriate arrays and vectors. Call ISLSOLVE
+  to compute the coefficients in x for each line. The coefficients are
+  stored inside SURFIT. Repeat this procedure for each line. ISLACCUM
+  and SFLSOLVE can be combined by a call to SFLFIT. If the x values
+  and weights remain the same from line to line ISLREFIT can be called.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>(4)</b></dt>
+  <!-- Sec='NOTES' Level=1 Label='' Line='(4)' -->
+  <dd>Call ISSOLVE to solve for the surface coefficients.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>(5)</b></dt>
+  <!-- Sec='NOTES' Level=1 Label='' Line='(5)' -->
+  <dd>Call ISEVAL or ISVECTOR to evaluate the fitted surface at the x and y
+  value(s) of interest.
+  </dd>
+  </dl>
+  <dl>
+  <dt><b>(6)</b></dt>
+  <!-- Sec='NOTES' Level=1 Label='' Line='(6)' -->
+  <dd>Call ISFREE to release the space allocated for the fit.
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+  </section>
+  <section id="s_examples">
+  <h3>Examples</h3>
+  <div class="highlight-default-notranslate"><pre>
+  Example 1: Fit a 2nd order Lengendre polynomial in x and y to an image
+  and output the fitted image
+  
+  include &lt;imhdr.h&gt;
+  include &lt;math/surfit.h&gt;
+  
+          old = immap (old_image, READ_ONLY, 0)
+          new = immap (new_image, NEW_COPY, 0)
+  
+          ncols = IM_LEN(old, 1)
+          nlines = IM_LEN(old, 2)
+  
+          # initialize surface fit
+          call isinit (sf, LEGENDRE, 3, 3, YES, ncols, nlines)
+  
+          # allocate space for lines, columns and weight arrays
+          call malloc (cols, ncols, TY_INT)
+          call malloc (lines, nlines, TY_INT)
+          call malloc (weight, ncols, TY_REAL)
+  
+          # initialize lines and columns arrays
+          do i = 1, ncols
+              Memi[cols - 1 + i] = i
+          do i = 1, nlines
+              Memi[lines - 1 + i] = i
+  
+          # fit the surface in x line by line
+          call amovkl (long(1), v, IM_MAXDIM)
+          do i = 1, nlines {
+              if (imgnlr (old, inbuf, v) == EOF)
+                  call error (0, "Error reading image.")
+              if (i == 1) {
+                  call islfit (sf, Memi[cols], i, Memr[inbuf], Memr[weight],
+                                  ncols, SF_WTSUNIFORM, ier)
+                  if (ier != OK)
+                      ...
+              } else
+                  call islrefit (sf, Memi[cols], i, Memr[inbuf], Memr[weight],
+                                  ier)
+          }
+  
+          # solve for surface coefficients
+          call issolve (sf, Memi[lines], nlines, ier)
+  
+          # free space used in fitting arrays
+          call mfree (cols, TY_INT)
+          call mfree (lines, TY_INT)
+          call mfree (weight, TY_REAL)
+  
+          # allocate space for x and y arrays
+          call malloc (x, ncols, TY_REAL)
+          call malloc (y, ncols, TY_REAL)
+  
+          # intialize z array
+          do i = 1, ncols
+              Memr[x - 1 + i] = real (i)
+  
+          # create fitted image
+          call amovkl (long(10, v, IM_MAXDIM)
+          do i = 1, nlines {
+              if (impnlr (new, outbuf, v) == EOF)
+                  call error (0, "Error writing image.")
+              call amovkr (real (i), Memr[y], ncols)
+              call isvector (sf, Memr[x], Memr[y], Memr[outbuf], ncols)
+          }
+  
+          # close files and cleanup
+          call mfree (x, TY_REAL)
+          call mfree (y, TY_REAL
+  
+          call isfree (sf)
+  
+          call imunmap (old)
+          call imunmap (new)
+  </pre></div>
+  
+  </section>
+  
+  <!-- Contents: 'NAME' 'SYNOPSIS' 'DESCRIPTION' 'NOTES' 'EXAMPLES'  -->
+  
