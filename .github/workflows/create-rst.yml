@@ -46,7 +46,18 @@ jobs:
         run: |
           python3 tools/irafdocs.py
 
-      - name: Push new docs
+      - name: Create Pull Request
+        if: github.ref == 'refs/heads/main'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: Auto-updated IRAF documentation
+          committer: '[bot] IRAF doc autoupdate <iraf-community@users.noreply.github.com>'
+          author: '[bot] IRAF doc autoupdate <iraf-community@users.noreply.github.com>'
+          branch: doc-autoupdate
+          title: Auto-updated IRAF documentation
+
+      - name: Directly push new docs on non-main branches
+        if: github.ref != 'refs/heads/main'
         run: |
           git config --global user.name '[bot] IRAF doc autoupdate'
           git config --global user.email 'iraf-community@users.noreply.github.com'
