@@ -333,4 +333,4 @@ if __name__ == "__main__":
             fp.write(external_index)
 
     with (docpath / "redirects.json").open("w") as fp:
-        json.dump(redirs, fp)
+        json.dump(redirs, fp, indent=2)
