@@ -221,9 +221,13 @@ def process_package(path, task=None, shortdesc=None):
             fp.write("\n  ".join(lines))
             fp.write("\n")
 
-    redirs[f"tasks/by-name/{name}"] = "../" + str(
-        path.relative_to("doc/tasks") / f"index.html"
-    )
+    if f"tasks/by-name/{name}" not in redirs:
+        redirs[f"tasks/by-name/{name}"] = "../" + str(
+            path.relative_to("doc/tasks") / f"index.html"
+        )
+    else:
+        print("     ignoring redir (duplicate)")
+
     return f"{name}/index"
 
 
@@ -255,9 +259,13 @@ def process_other(path, task, shortdesc):
         fp.write("\n  ".join(lines))
         fp.write("\n")
 
-    redirs[f"tasks/by-name/{name}"] = "../" + str(
-        path.relative_to("doc/tasks") / f"{name}.html"
-    )
+    if f"tasks/by-name/{name}" not in redirs:
+        redirs[f"tasks/by-name/{name}"] = "../" + str(
+            path.relative_to("doc/tasks") / f"{name}.html"
+        )
+    else:
+        print("     ignoring redir (duplicate)")
+
     return name
 
 
@@ -333,4 +341,4 @@ if __name__ == "__main__":
             fp.write(external_index)
 
     with (docpath / "redirects.json").open("w") as fp:
-        json.dump(redirs, fp)
+        json.dump(redirs, fp, indent=2)
