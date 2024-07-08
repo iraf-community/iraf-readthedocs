@@ -54,9 +54,9 @@ fxplf: Converts a pixel list file into a BINTABLE extension
   1. To put together all of the Pixel list files starting with <span style="font-family: monospace;">'f'</span>
   into one new output FITS file.
   </p>
-  <p>
-  	im&gt; fxplf f*.pl bigplf.fits 
-  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxplf f*.pl bigplf.fits
+  </pre></div>
   </section>
   <section id="s_bugs">
   <h3>Bugs</h3>

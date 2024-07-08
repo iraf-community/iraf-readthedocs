@@ -68,22 +68,22 @@ fxcopy: Copy FITS files or FITS extension to an output FITS file
   1. To put together all of the FITS files starting with <span style="font-family: monospace;">'f'</span> into one new output
   file.
   </p>
-  <p>
-  	im&gt; fxcopy f*.fits bigf.fits new_file=yes
-  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxcopy f*.fits bigf.fits new_file=yes
+  </pre></div>
   <p>
   2. To copy extensions 1,3,5 from input file g10.fits into a new file. If you 
   want to append to an existent file, set 'new_file = no'.
   </p>
-  <p>
-  	im&gt; fxcopy g10.fits g3.fit groups=<span style="font-family: monospace;">"1,3,5"</span> new_file=yes
-  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxcopy g10.fits g3.fit groups="1,3,5" new_file=yes
+  </pre></div>
   <p>
   3. Selected extensions from various input files.
   </p>
-  <p>
-  	im&gt; fxcopy fa.fits[2],fb.fits[5],fb.fits[7] fall.fits
-  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxcopy fa.fits[2],fb.fits[5],fb.fits[7] fall.fits
+  </pre></div>
   </section>
   <section id="s_bugs">
   <h3>Bugs</h3>

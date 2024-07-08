@@ -55,20 +55,24 @@ fxinsert: Insert FITS files or extensions into another MEF file
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <div class="highlight-default-notranslate"><pre>
+  <p>
   1. Insert group 3 from input.fits after group 1 from output.fits file.
-  
-          im&gt; fxinsert input.fits[3] output.fits[1]
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxinsert input.fits[3] output.fits[1]
+  </pre></div>
+  <p>
   2. To insert extensions 1,3,5 from input file g10.fits after group 5 from
      g30.fits file.
-  
-          im&gt; fxinsert g10.fits g30.fits[5] groups="1,3,5"
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxinsert g10.fits g30.fits[5] groups="1,3,5"
+  </pre></div>
+  <p>
   3. Insert files and extensions.
-  
-          im&gt; fxinsert fa.fits,fb.fits[5],fc.fits foutput.fits[3]
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxinsert fa.fits,fb.fits[5],fc.fits foutput.fits[3]
   </pre></div>
   </section>
   <section id="s_bugs">

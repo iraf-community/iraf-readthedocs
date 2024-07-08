@@ -55,20 +55,26 @@ fxdelete: Delete FITS extensions in place
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <div class="highlight-default-notranslate"><pre>
+  <p>
   1. Delete group 3 from input.fits.
-  
-          im&gt; fxdelete input.fits[3]
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxdelete input.fits[3]
+  </pre></div>
+  <p>
   2. To delete extensions 1,3,5 from input file g10.fits.
+  </p>
+  <div class="highlight-default-notranslate"><pre>
   
-          im&gt; fxdelete g10.fits groups="1,3,5"
-  
+  im&gt; fxdelete g10.fits groups="1,3,5"
+  </pre></div>
+  <p>
   3. Delete extensions. Notice that for those files without an extension, the
      group extension list applies.
+  </p>
+  <div class="highlight-default-notranslate"><pre>
   
-          im&gt; fxdelete fa.fits,fb.fits[5],fc.fits groups="1,3,4"
-  
+  im&gt; fxdelete fa.fits,fb.fits[5],fc.fits groups="1,3,4"
   </pre></div>
   </section>
   <section id="s_bugs">

@@ -71,7 +71,9 @@ fxextract: Extract a FITS extension
   1. To extract extension 2,4,5 from a file and not produce a PHU for
   each of them. The output files will be extf2.fits, extf4.fits and 
   extf5.fits.
-  	im&gt; fxextract mef.fits extf.fits groups=2,4,5 phu=no
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxextract mef.fits extf.fits groups=2,4,5 phu=no
+  </pre></div>
   </section>
   <section id="s_bugs">
   <h3>Bugs</h3>

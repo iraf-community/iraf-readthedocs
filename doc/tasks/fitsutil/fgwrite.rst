@@ -203,19 +203,21 @@ fgwrite: Create a MEF file with FOREIGN extensions
   <section id="s_examples">
   <h3>Examples</h3>
   <p>
-  1) Creates a MEF file 'mef.fits' with the default setup.
+  1. Creates a MEF file 'mef.fits' with the default setup.
   </p>
+  <div class="highlight-default-notranslate"><pre>
+  cl&gt; fgwrite file1.for,test.c,obs.log mef.fits
+  </pre></div>
   <p>
-  	cl&gt; fgwrite file1.for,test.c,obs.log mef.fits
-  </p>
-  <p>
-  2) Create an archive of the current directory and its subdirectories
+  2. Create an archive of the current directory and its subdirectories
      excluding any symbolic links.
-     
-     cl&gt; fgwrite . ../zzd_arc.fits exclude=s checksum=yes
-     
-     The ckecksum option is set, so the keyword CHECKSUM, DATASUM and
-     CHECKVER will be present in all unit headers.
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  cl&gt; fgwrite . ../zzd_arc.fits exclude=s checksum=yes
+  </pre></div>
+  <p>
+  The ckecksum option is set, so the keyword CHECKSUM, DATASUM and
+  CHECKVER will be present in all unit headers.
   </p>
   </section>
   <section id="s_bugs">
