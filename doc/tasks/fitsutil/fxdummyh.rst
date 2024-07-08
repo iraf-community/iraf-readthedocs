@@ -40,10 +40,11 @@ fxdummyh: Create a dataless single FITS file
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <div class="highlight-default-notranslate"><pre>
+  <p>
   1. Create a new dataless FITS file with user FITS header file.
-  
-          im&gt; fxdummyh file3.fits hdr_file=myhdr.txt
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxdummyh file3.fits hdr_file=myhdr.txt
   
   </pre></div>
   </section>

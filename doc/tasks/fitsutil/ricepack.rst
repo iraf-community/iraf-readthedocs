@@ -129,40 +129,47 @@ ricepack: Rice compress a FITS file
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <div class="highlight-default-notranslate"><pre>
+  <p>
   1. Tile compress a file using the default Rice algorithm
-  
-          fitsutil&gt; ricepack file3.fits
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  fitsutil&gt; ricepack file3.fits
+  </pre></div>
+  <p>
      The output file is: file3.fits.fz
-  
+  </p>
+  <p>
   2. Compress a mixed list of images:
-  
-          fitsutil&gt; ricepack *.fits,*.imh,*.fits.gz
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  fitsutil&gt; ricepack *.fits,*.imh,*.fits.gz
+  </pre></div>
+  <p>
   3. Compress a file and retain the original:
-  
-          fitsutil&gt; ricepack file4.fits keep+
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  fitsutil&gt; ricepack file4.fits keep+
+  </pre></div>
+  <p>
   4. Uncompress gzipped files and recompress using Rice in one step:
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  fitsutil&gt; ricepack *.gz
+  1.1.3 (March 2009) CFITSIO version  3.140
   
-          fitsutil&gt; ricepack *.gz
-          1.1.3 (March 2009) CFITSIO version  3.140
+  Wed 15:31:50 19-Aug-2009
+  kp1016311.fits.gz -&gt; kp1016311.fits.fz
+          ...
+  kp1016429.fits.gz -&gt; kp1016429.fits.fz
+  Wed 15:31:58 19-Aug-2009
   
-          Wed 15:31:50 19-Aug-2009
-          kp1016311.fits.gz -&gt; kp1016311.fits.fz
-                  ...
-          kp1016429.fits.gz -&gt; kp1016429.fits.fz
-          Wed 15:31:58 19-Aug-2009
+  63 images, 0.13 seconds each, 0:00:08.0 elapsed
   
-          63 images, 0.13 seconds each, 0:00:08.0 elapsed
+   input:      56.550 MB
+  output:      45.701 MB
+   saved:      10.849 MB, 19%
   
-           input:      56.550 MB
-          output:      45.701 MB
-           saved:      10.849 MB, 19%
-  
-          relative R = 1.24
-  
+  relative R = 1.24
   </pre></div>
   <p>
   The Rice compressed files save 19% of the space (10.849 MB in this case)

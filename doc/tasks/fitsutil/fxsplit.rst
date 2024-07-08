@@ -39,17 +39,20 @@ fxsplit: Split a multiple extension FITS file into single FITS files
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <div class="highlight-default-notranslate"><pre>
+  <p>
   1. Split a MEF file that have 2 extensions.
-  
-          im&gt; fxsplit file3.fits
-  
-     The output file are: file30.fits, file31.fits file32.fits
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxsplit file3.fits
+  </pre></div>
+  <p>
+     The output file are: file30.fits, file31.fits file32.fits	 
+  </p>
+  <p>
   2. To split 2 or more MEF files.
-  
-          im&gt; fxsplit g10.fits,msc.fits
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; fxsplit g10.fits,msc.fits
   </pre></div>
   </section>
   <section id="s_bugs">

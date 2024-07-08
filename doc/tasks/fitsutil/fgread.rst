@@ -105,7 +105,7 @@ fgread: Read a MEF file with FOREIGN extensions
   <section id="s_examples">
   <h3>Examples</h3>
   <p>
-  1) Restore extension 2 and 5 from the MEF file 'mef.fits'. First look at
+  1. Restore extension 2 and 5 from the MEF file 'mef.fits'. First look at
   listing for the exact extension numbers.
   </p>
   <div class="highlight-default-notranslate"><pre>
@@ -113,17 +113,18 @@ fgread: Read a MEF file with FOREIGN extensions
   cl&gt; fgread mef.fits "" "" extract-
   cl&gt; fgread mef.fits 2,5 ""
   
-  Notice the double quote symbols to indicate a null list of output
-  files since we want to extract extension 2 and 5.
-  
   </pre></div>
   <p>
-  2) Extract 'log1.txt', 'log2.txt' and 'obs23.fits' extensions from the
-  input MEF file.
+  Notice the double quote symbols to indicate a null list of output
+  files since we want to extract extension 2 and 5.
   </p>
   <p>
-     cl&gt; fgread mef.fits <span style="font-family: monospace;">""</span> log1.txt,log2.txt,obs23.fits
+  2. Extract 'log1.txt', 'log2.txt' and 'obs23.fits' extensions from the
+  input MEF file.
   </p>
+  <div class="highlight-default-notranslate"><pre>
+  cl&gt; fgread mef.fits "" log1.txt,log2.txt,obs23.fits
+  </pre></div>
   </section>
   <section id="s_bugs">
   <h3>Bugs</h3>

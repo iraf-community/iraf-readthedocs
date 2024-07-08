@@ -80,9 +80,9 @@ fxconvert: Convert between IRAF image types.
   <p>
   2. To copy a portion of an image:
   </p>
-  <p>
-  	cl&gt; fxconvert image[10:20,*] subimage.fits
-  </p>
+  <div class="highlight-default-notranslate"><pre>
+  cl&gt; fxconvert image[10:20,*] subimage.fits
+  </pre></div>
   <p>
   3. To copy several images. The 'imtype' setting is necessary to dot it only
   once until another image type is desire as output. After the reset, a 
@@ -98,16 +98,17 @@ fxconvert: Convert between IRAF image types.
   <p>
   4. To trim an image:
   </p>
-  <p>
-  	cl&gt; fxconvert image[10:20,*] image
-  </p>
+  <div class="highlight-default-notranslate"><pre>
+  
+  cl&gt; fxconvert image[10:20,*] image
+  </pre></div>
   <p>
   In the above example the specified section of the input image replaces the
   original input image.  To trim several images using an image template:
   </p>
-  <p>
-  	cl&gt; fxconvert frame*[1:512,1:512] frame*
-  </p>
+  <div class="highlight-default-notranslate"><pre>
+  cl&gt; fxconvert frame*[1:512,1:512] frame*
+  </pre></div>
   <p>
   In this example all images beginning with <span style="font-family: monospace;">"frame"</span> are trimmed to 512 x 512.
   </p>
@@ -118,9 +119,17 @@ fxconvert: Convert between IRAF image types.
   </p>
   <div class="highlight-default-notranslate"><pre>
   cl&gt; fxconvert image* directory
-                  or
+  </pre></div>
+  <p>
+  or
+  </p>
+  <div class="highlight-default-notranslate"><pre>
   cl&gt; fxconvert image* directory$
-                  or
+  </pre></div>
+  <p>
+  or
+  </p>
+  <div class="highlight-default-notranslate"><pre>
   cl&gt; fxconvert image* osdirectory
   </pre></div>
   <p>

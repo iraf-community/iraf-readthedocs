@@ -53,13 +53,14 @@ sum32: Compute the 32-bit FITS 1's complement checksum
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <div class="highlight-default-notranslate"><pre>
+  <p>
   1. Report the 1's complement checksum for a list of files:
-  
-          fitsutil&gt; sum32 *.fits
-          sum_zeroed       584640 test1.fits.fz
-          1363490151       532800 test2.fits
-          2002849261       172800 test3.fits
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  fitsutil&gt; sum32 *.fits
+  sum_zeroed       584640 test1.fits.fz
+  1363490151       532800 test2.fits
+  2002849261       172800 test3.fits
   </pre></div>
   </section>
   <section id="s_references">

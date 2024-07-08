@@ -69,14 +69,15 @@ funpack: Uncompress a FITS file
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
-  <div class="highlight-default-notranslate"><pre>
+  <p>
   1. Uncompress a tile compressed file:
-  
-          im&gt; funpack file3.fits.fz
-  
-     The output file is: file3.fits
-  
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+  im&gt; funpack file3.fits.fz
   </pre></div>
+  <p>
+  The output file is <span style="font-family: monospace;">"file3.fits"</span>.
+  </p>
   </section>
   <section id="s_bugs">
   <h3>Bugs</h3>
