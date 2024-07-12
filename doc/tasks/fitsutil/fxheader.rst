@@ -39,53 +39,15 @@ fxheader: List one line of header description per FITS unit
   <!-- Sec='PARAMETERS' Level=0 Label='' Line='(short_header = yes) [boolean]' -->
   <dd>Print only a short header?  Lists files processed, their 
   dimensions, size of data type and scaling parameter on the standard output.
-  </section>
-  <section id="s_description">
-  <h3>Description</h3>
-  This task quickly lists one or a group of FITS files on disk.
-  It reads only the header portion of each file, skipping the data.  An
-  optional parameter allows the user to list the full FITS header rather
-  than a single line per file. For FITS files with extensions, you can specify
-  the extension number to get a listing of one FITS unit.
-  The keywords below represent the standard single line of 
-  information per processed
-  file. You can change this by suplying a filename to the parameter 
-  'format_file'. Up to 80 characters per line are sent
-  to the display terminal.
-  The following information will be listed in short headers by default.
-  The first column is a name of an image header keyword or a special name
-  the program will process to give you the requested column information.
-  <div class="highlight-default-notranslate"><pre>
-  
-          EXT#       Extension number
-          EXTTYPE    Input FITS diskname.
-          EXTNAME    EXTNAME value
-          BITPIX     Bits per pixels of the input data and
-                     the original datatype. (I,R,D,U,S)
-          DIMENS     Input FITS file dimensionality.
-          BZERO      Zero offset
-          BSCALE     Scale factor
-  
-  
-  Notes: (I,R,D,U,S) refer to Integer, Real, Double, Unsigned and Short
-         input data types, respectively. If the 'ieee' parameter is set,
-         a minus (-) sign appears between the letter and the bits figure.
-  
-  </pre></div>
-  'DIMENS' is the number of dimensions in the output FITS file; the  
-  format is <span style="font-family: monospace;">"NxNxN"</span>
-  If the input file is a table, this keyword
-  indicates the number of columns (Fields) and the number of rows in the table
-  with the suffix F and R (e.g., 27Fx12R).
   </dd>
   </dl>
   <dl>
   <dt><b>(format_file = '') [file name]</b></dt>
-  <!-- Sec='DESCRIPTION' Level=0 Label='' Line='(format_file = '') [file name]' -->
-  <dd>If you want to define your own output format--still limited to one line per
-  file--you can create an ASCII text file with some of the special
-  keywords, in addition to your own image header keyword that you want
-  to see in the display terminal or in the log file.
+  <!-- Sec='PARAMETERS' Level=0 Label='' Line='(format_file = '') [file name]' -->
+  <dd>If you want to define your own output format -- still limited to one
+  line per file -- you can create an ASCII text file with some of the
+  special keywords, in addition to your own image header keyword that
+  you want to see in the display terminal or in the log file.
   The format of the 'format' file is as follow. One column with the
   keywords and a second with the field width and position of the
   values within the columns. The column format is similar to the
@@ -106,6 +68,47 @@ fxheader: List one line of header description per FITS unit
   the ones in the input FITS header.
   </dd>
   </dl>
+  </section>
+  <section id="s_description">
+  <h3>Description</h3>
+  <p>
+  This task quickly lists one or a group of FITS files on disk.
+  It reads only the header portion of each file, skipping the data.  An
+  optional parameter allows the user to list the full FITS header rather
+  than a single line per file. For FITS files with extensions, you can specify
+  the extension number to get a listing of one FITS unit.
+  The keywords below represent the standard single line of 
+  information per processed
+  file. You can change this by suplying a filename to the parameter 
+  'format_file'. Up to 80 characters per line are sent
+  to the display terminal.
+  </p>
+  <p>
+  The following information will be listed in short headers by default.
+  The first column is a name of an image header keyword or a special name
+  the program will process to give you the requested column information.
+  </p>
+  <div class="highlight-default-notranslate"><pre>
+          EXT#       Extension number
+          EXTTYPE    Input FITS diskname.
+          EXTNAME    EXTNAME value
+          BITPIX     Bits per pixels of the input data and
+                     the original datatype. (I,R,D,U,S)
+          DIMENS     Input FITS file dimensionality.
+          BZERO      Zero offset
+          BSCALE     Scale factor
+  
+  Notes: (I,R,D,U,S) refer to Integer, Real, Double, Unsigned and Short
+         input data types, respectively. If the 'ieee' parameter is set,
+         a minus (-) sign appears between the letter and the bits figure.
+  </pre></div>
+  <p>
+  'DIMENS' is the number of dimensions in the output FITS file; the  
+  format is <span style="font-family: monospace;">"NxNxN"</span>
+  If the input file is a table, this keyword
+  indicates the number of columns (Fields) and the number of rows in the table
+  with the suffix F and R (e.g., 27Fx12R).
+  </p>
   </section>
   <section id="s_examples">
   <h3>Examples</h3>
