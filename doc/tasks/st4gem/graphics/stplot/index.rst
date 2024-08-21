@@ -4,7 +4,11 @@ stplot: General plotting utilities.
 .. toctree:: :maxdepth: 1
 
    igi
+   sgraph
    psikern
+   axispar
+   dvpar
+   pltpar
 .. raw:: html
 
   <p>
