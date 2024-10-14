@@ -618,6 +618,8 @@
   "tasks/by-name/softools": "../softools/index.html",
   "tasks/by-name/allocate": "../system/allocate.html",
   "tasks/by-name/concatenate": "../system/concatenate.html",
+  "tasks/by-name/chkupdate": "../system/chkupdate.html",
+  "tasks/by-name/copy": "../system/copy.html",
   "tasks/by-name/count": "../system/count.html",
   "tasks/by-name/deallocate": "../system/deallocate.html",
   "tasks/by-name/delete": "../system/delete.html",
