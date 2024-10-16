@@ -5,6 +5,8 @@ system: System utilities package
 
    allocate
    concatenate
+   chkupdate
+   copy
    count
    deallocate
    delete
