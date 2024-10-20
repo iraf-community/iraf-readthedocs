@@ -12,6 +12,7 @@ language: The command language itself
    declarations
    default
    else
+   for
    if
    goto
    logging

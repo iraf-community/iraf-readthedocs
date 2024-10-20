@@ -141,19 +141,15 @@ def get_help(task, device="text", option="help"):
 
 
 def get_menu(task):
+    menu_re = re.compile(r"\A\s*(\w+)\s*[-\*] (\w.+)")
     pkgname = task.getName()
     menu = list()
     lines = get_help(task)
     for line in lines:
-        if "-" in line:
-            name, desc = line.split("-", 1)
-        elif "*" in line:
-            name, desc = line.split("*", 1)
-        else:
+        m = menu_re.match(line)
+        if m is None:
             continue
-        name = name.strip()
-        if " " in name:  # Probably not a menu line
-            continue
+        name, desc = m.groups()
         if desc.endswith("[up]"):
             desc = desc[:-4]
         desc = desc.strip()
@@ -246,6 +242,7 @@ def process_other(path, task, shortdesc):
         outfile.parent.mkdir()
     lines = get_help(task, device="html")
     if lines is None:
+        print("      no help found")
         return None
 
     with outfile.open("w") as fp:
