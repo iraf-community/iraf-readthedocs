@@ -242,6 +242,7 @@ def process_other(path, task, shortdesc):
         outfile.parent.mkdir()
     lines = get_help(task, device="html")
     if lines is None:
+        print("      no help found")
         return None
 
     with outfile.open("w") as fp:
