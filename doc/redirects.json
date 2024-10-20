@@ -133,6 +133,7 @@
   "tasks/by-name/declarations": "../language/declarations.html",
   "tasks/by-name/default": "../language/default.html",
   "tasks/by-name/else": "../language/else.html",
+  "tasks/by-name/for": "../language/for.html",
   "tasks/by-name/if": "../language/if.html",
   "tasks/by-name/goto": "../language/goto.html",
   "tasks/by-name/logging": "../language/logging.html",
