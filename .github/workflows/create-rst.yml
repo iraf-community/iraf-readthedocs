@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Checkout latest IRAF master
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: iraf-community/iraf
           path: ${{ env.iraf }}
