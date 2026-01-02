@@ -19,3 +19,4 @@ imred: Image reductions package
    kpnoslit/index
    quadred/index
    specred/index
+   vtel/index
