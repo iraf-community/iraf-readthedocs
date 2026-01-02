@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
-"""irafdocs.py: compile IRAF documentation
-"""
+"""irafdocs.py: compile IRAF documentation"""
 import os
 import pathlib
 import re
@@ -291,8 +290,8 @@ def external_packages():
                     helpdir=f"{ext_path}/lib/root.hd",
                     helpdb=f"{ext_path}/lib/helpdb.mip",
                 )
-            except IrafError:  # happens when the helpdb file cannot be written
-                pass
+            except IrafError:
+                print(f"Helpdb for {ext_path.name} cannot be written")
             flprcache("mkhelpdb")
             yield ext_path.name
 
@@ -321,6 +320,9 @@ if __name__ == "__main__":
     docpath = pathlib.Path("doc")
 
     copy_static(docpath)
+
+    mkhelpdb(helpdir="lib$root.hd", helpdb="lib$helpdb.mip")
+    mkhelpdb(helpdir="noao$lib/root.hd", helpdb="noao$lib/helpdb.mip")
 
     process_task(docpath / "tasks", "clpackage")
     external_index = (
