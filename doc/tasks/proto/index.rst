@@ -10,6 +10,7 @@ proto: Prototype or interim tasks
    epix
    fields
    fixpix
+   ghost2ms
    hfix
    imcntr
    imextensions
