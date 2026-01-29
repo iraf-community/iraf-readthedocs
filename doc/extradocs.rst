@@ -115,3 +115,7 @@ Programming Guides
 * `An Introductory User's Guide to IRAF SPP Programming
   <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/sppguide.pdf>`_,
   Rob Seaman, October 1992.
+
+* `Named External Parameter Sets in the CL
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/pset.pdf>`_,
+  Doug Tody, October 1986.
