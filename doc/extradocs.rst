@@ -119,3 +119,67 @@ Programming Guides
 * `Named External Parameter Sets in the CL
   <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/pset.pdf>`_,
   Doug Tody, October 1986.
+
+
+IRAF newsletters
+----------------
+
+The IRAF Newsletter was a publication for the IRAF community,
+providing news and information for IRAF users and developers. Fourteen
+issues were published from 1984 through 1998.
+
+* `IRAF Newsletter No. 1
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_1.pdf>`_,
+  June 1986.
+
+* `IRAF Newsletter No. 2
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_2.pdf>`_,
+  September 1987.
+
+* `IRAF Newsletter No. 3
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_3.pdf>`_,
+  February 1988.
+
+* `IRAF Newsletter No. 4
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_4.pdf>`_,
+  June 1988.
+
+* `IRAF Newsletter No. 5
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_5.pdf>`_,
+  October 1988.
+
+* `IRAF Newsletter No. 6
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_6.pdf>`_,
+  February 1989.
+
+* `IRAF Newsletter No. 7
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_7.pdf>`_,
+  June 1989.
+
+* `IRAF Newsletter No. 8
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_8.pdf>`_,
+  October 1989.
+
+* `IRAF Newsletter No. 9
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_9.pdf>`_,
+  February/June 1990.
+
+* `IRAF Newsletter No. 10
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_10.pdf>`_,
+  October 1990.
+
+* `IRAF Newsletter No. 11
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_11.pdf>`_,
+  April 1991.
+
+* `IRAF Newsletter No. 12
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_12.pdf>`_,
+  July 1992.
+
+* `IRAF Newsletter No. 13
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_13.pdf>`_,
+  December 1994.
+
+* `IRAF Newsletter No. 14
+  <https://raw.githubusercontent.com/iraf-community/iraf-docs/main/pdf/newslet_14.pdf>`_,
+  April 1998.
