@@ -15,6 +15,7 @@ IRAF is maintained by the iraf-community_.
    std
    std_gl
    unixsmg
+   sgi
    releases/index
    extradocs
    PyRAF tutorial <https://pyraf.readthedocs.io/>

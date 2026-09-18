@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="480.98" height="185.66" version="1.1" viewBox="0 0 480.98 185.66" xmlns="http://www.w3.org/2000/svg">
+ <g transform="matrix(1.3333 0 0 -1.3333 -143.44 802.96)">
+  <g transform="scale(.1)">
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,205.5,586.5)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 6.6700001" y="0">CL</tspan></text>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m1879 5752v266"/>
+    <path d="m1879 6018h480"/>
+    <path d="m2360 6018v-266"/>
+    <path d="m2360 5752h-480"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,274.3,592.5)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 5 7.7800002 11.67 16.67 21.67 25.559999" y="0">dispose</tspan><tspan x="-4.6999998 -0.25999999 4.7399998 12.52 20.299999 24.74 29.74" y="12">command</tspan></text>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m2360 5885h1066"/>
+    <path d="m3373 5872 53 13"/>
+    <path d="m3373 5898 53-13"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,357.2,592.5)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 7.2199998 12.22 16.110001" y="0">Host</tspan><tspan x="3 9.6700001" y="12">CL</tspan></text>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m3426 5752v266"/>
+    <path d="m3426 6018h480"/>
+    <path d="m3906 6018v-266"/>
+    <path d="m3906 5752h-480"/>
+    <path d="m2133 5699-13 53"/>
+    <path d="m2106 5699 13 53"/>
+    <path d="m2119 5752v-426"/>
+    <path d="m2106 5378 13-53"/>
+    <path d="m2133 5378-13-53"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,203.9,523.2)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 5.5599999 12.78" y="0">SGI</tspan><tspan x="-4.4000001 0.60000002 5.04 8.3699999 13.37 17.809999" y="12">kernel</tspan></text>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m1879 5059v266"/>
+    <path d="m1879 5325h480"/>
+    <path d="m2360 5325v-266"/>
+    <path d="m2360 5059h-480"/>
+    <path d="m3666 5752v-426"/>
+    <path d="m3653 5378 13-53"/>
+    <path d="m3679 5378-13-53"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,351.6,523.2)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 5 7.7800002 11.67 16.67 21.67 25.559999" y="0">dispose</tspan><tspan x="7 9.7799997 14.22 18.110001" y="12">task</tspan></text>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m3426 5059v266"/>
+    <path d="m3426 5325h480"/>
+    <path d="m3906 5325v-266"/>
+    <path d="m3906 5059h-480"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,281.5,480.5)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 5 7.7800002 12.78" y="0">plot</tspan><tspan x="1.4 6.96 9.7399998" y="12">fle</tspan></text>
+   </g>
+   <g transform="scale(1.2869 .71314)">
+    <path d="m2434.6 6681.8c0 103-83.5 186.5-186.5 186.5s-186.5-83.5-186.5-186.5 83.5-186.5 186.5-186.5 186.5 83.5 186.5 186.5" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6.4757"/>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m2226 5059 426-293"/>
+    <path d="m2602 4784 51-19"/>
+    <path d="m2617 4806 36-41"/>
+    <path d="m3133 4765 426 293"/>
+    <path d="m3523 5017 36 41"/>
+    <path d="m3508 5039 51 19"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,431,480.5)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 5 7.7800002 12.78 15.56 18.34 22.780001" y="0">plotter</tspan><tspan x="1.1 6.0999999 11.1 15.54 20.540001" y="12">queue</tspan></text>
+   </g>
+   <g transform="scale(1.2869 .71314)">
+    <path d="m3636 6681.8c0 103-83.5 186.5-186.5 186.5s-186.5-83.5-186.5-186.5 83.5-186.5 186.5-186.5 186.5 83.5 186.5 186.5" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6.4757"/>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m3773 5059 426-293"/>
+    <path d="m4148 4784 51-19"/>
+    <path d="m4163 4806 36-41"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,125.8,480.5)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 7.2199998 14.44" y="0">GKI</tspan><tspan x="-10.3 -2.52 1.92 4.6999998 9.1400003 13.58 18.58 23.58" y="12">metacode</tspan></text>
+   </g>
+   <g transform="scale(1.2869 .71314)">
+    <path d="m1232.4 6681.8c0 103-83.5 186.5-186.5 186.5-103 0-186.5-83.5-186.5-186.5s83.5-186.5 186.5-186.5c103 0 186.5 83.5 186.5 186.5" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6.4757"/>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m1586 4765 426 293"/>
+    <path d="m1977 5017 36 41"/>
+    <path d="m1962 5039 51 19"/>
+   </g>
+   <g transform="scale(10)">
+    <text transform="matrix(1,0,0,-1,113.7,551.8)" fill="#000000" font-family="Times" font-size="10px" xml:space="preserve"><tspan x="0 5 8.3299999 12.77 17.77 22.77 27.209999 31.65" y="0">graphcap</tspan></text>
+   </g>
+   <g transform="scale(1.2869 .71314)">
+    <path d="m1212.2 7765.7c0 103-83.5 186.5-186.5 186.5s-186.5-83.5-186.5-186.5 83.5-186.5 186.5-186.5 186.5 83.5 186.5 186.5" fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="6.4757"/>
+   </g>
+   <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="8.3333">
+    <path d="m1560 5592 319 293"/>
+    <path d="m1849 5839 30 46"/>
+    <path d="m1831 5859 48 25"/>
+    <path d="m1560 5485 319-293"/>
+    <path d="m1831 5218 48-25"/>
+    <path d="m1849 5238 30-46"/>
+   </g>
+  </g>
+ </g>
+</svg>
